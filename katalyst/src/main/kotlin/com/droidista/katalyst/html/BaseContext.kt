@@ -1,6 +1,6 @@
 package com.droidista.katalyst.html
 
-open class BaseContext(val indentation: Int) {
+open class BaseContext {
     val elements = mutableListOf<Element>()
 }
 

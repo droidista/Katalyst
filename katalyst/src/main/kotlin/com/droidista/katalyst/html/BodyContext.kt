@@ -1,6 +1,6 @@
 package com.droidista.katalyst.html
 
-class BodyContext(val node: Node) : BaseContext(indentation = node.indentation + 1) {
+class BodyContext(val node: Node) : BaseContext() {
     inline fun container(
         tag: String,
         id: String? = null,
@@ -10,7 +10,6 @@ class BodyContext(val node: Node) : BaseContext(indentation = node.indentation +
         val node = Node(
             tag = tag,
             parent = node,
-            indentation = indentation,
             attributes = buildMap {
                 if (id != null) {
                     put("id", id)
@@ -35,13 +34,11 @@ class BodyContext(val node: Node) : BaseContext(indentation = node.indentation +
         val node = Node(
             tag = tag,
             parent = node,
-            indentation = indentation,
         )
         node.children = listOf(
             Text(
                 text = text,
                 parent = node,
-                indentation = indentation + 1
             ),
         )
         elements.add(node)
@@ -95,11 +92,23 @@ class BodyContext(val node: Node) : BaseContext(indentation = node.indentation +
         crossinline block: BodyContext.() -> Unit,
     ) = container("div", id, className, block)
 
+    inline fun pre(
+        id: String? = null,
+        className: String? = null,
+        crossinline block: BodyContext.() -> Unit,
+    ) = container("pre", id, className, block)
+
     inline fun p(
         id: String? = null,
         className: String? = null,
         crossinline block: BodyContext.() -> Unit,
     ) = container("p", id, className, block)
+
+    inline fun code(
+        id: String? = null,
+        className: String? = null,
+        crossinline block: BodyContext.() -> Unit,
+    ) = container("code", id, className, block)
 
     inline fun nav(
         id: String? = null,
@@ -170,7 +179,6 @@ class BodyContext(val node: Node) : BaseContext(indentation = node.indentation +
         val node = Node(
             tag = "a",
             parent = node,
-            indentation = indentation,
             attributes = buildMap {
                 if (id != null) {
                     put("id", id)
@@ -199,7 +207,6 @@ class BodyContext(val node: Node) : BaseContext(indentation = node.indentation +
         val node = Node(
             tag = "a",
             parent = node,
-            indentation = indentation,
             attributes = buildMap {
                 if (id != null) {
                     put("id", id)
@@ -219,8 +226,23 @@ class BodyContext(val node: Node) : BaseContext(indentation = node.indentation +
             Text(
                 text = text,
                 parent = node,
-                indentation = indentation + 1
             ),
+        )
+        elements.add(node)
+    }
+
+    fun text(text: String) {
+        val node = Text(
+            text = text,
+            parent = node,
+        )
+        elements.add(node)
+    }
+
+    fun br() {
+        val node = Node(
+            tag = "br",
+            parent = node,
         )
         elements.add(node)
     }

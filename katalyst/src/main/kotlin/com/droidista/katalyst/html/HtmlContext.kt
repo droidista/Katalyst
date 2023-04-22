@@ -1,11 +1,10 @@
 package com.droidista.katalyst.html
 
-class HtmlContext(val node: Node) : BaseContext(indentation = node.indentation + 1) {
+class HtmlContext(val node: Node) : BaseContext() {
     fun head(block: HeadContext.() -> Unit) {
         val node = Node(
             tag = "head",
             parent = node,
-            indentation = indentation
         )
         val context = HeadContext(node)
         block(context)
@@ -17,7 +16,6 @@ class HtmlContext(val node: Node) : BaseContext(indentation = node.indentation +
         val node = Node(
             tag = "body",
             parent = node,
-            indentation = indentation
         )
         val context = BodyContext(node)
         block(context)

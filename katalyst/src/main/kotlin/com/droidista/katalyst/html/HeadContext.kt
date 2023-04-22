@@ -1,17 +1,15 @@
 package com.droidista.katalyst.html
 
-class HeadContext(val node: Node) : BaseContext(indentation = node.indentation + 1) {
+class HeadContext(val node: Node) : BaseContext() {
     fun title(title: String) {
         val node = Node(
             tag = "title",
             parent = node,
-            indentation = indentation,
         )
         node.children = listOf(
             Text(
                 text = title,
                 parent = node,
-                indentation = indentation + 1
             ),
         )
         elements.add(node)
@@ -26,7 +24,6 @@ class HeadContext(val node: Node) : BaseContext(indentation = node.indentation +
         val node = Node(
             tag = "meta",
             parent = node,
-            indentation = indentation,
             attributes = buildMap {
                 if (charset != null) {
                     put("charset", charset)
@@ -54,7 +51,6 @@ class HeadContext(val node: Node) : BaseContext(indentation = node.indentation +
         val node = Node(
             tag = "link",
             parent = node,
-            indentation = indentation,
             attributes = buildMap {
                 if (rel != null) {
                     put("rel", rel)
@@ -69,6 +65,32 @@ class HeadContext(val node: Node) : BaseContext(indentation = node.indentation +
                     put("href", href)
                 }
             }
+        )
+        elements.add(node)
+    }
+
+    fun script(
+        src: String? = null,
+        async: Boolean = false,
+        defer: Boolean = false,
+    ) {
+        val node = Node(
+            tag = "script",
+            parent = node,
+            attributes = buildMap {
+                if (src != null) {
+                    put("src", src)
+                }
+                if (async) {
+                    put("async", null)
+                }
+                if (defer) {
+                    put("defer", null)
+                }
+            },
+            children = listOf(
+                Text(text = "")
+            ),
         )
         elements.add(node)
     }
