@@ -20,17 +20,15 @@ fun main(args: Array<String>) {
             )
             body {
                 header {
-                    h1(text = "Anand's Blog")
+                    h1("Anand's Blog")
                     buildNavigation()
                 }
                 main {
                     article {
                         a(href = "/template.html") {
-                            h2(text = "My Research on gRPC for Android")
+                            h2("My Research on gRPC for Android")
                         }
-                        span(className = "article-date") {
-                            text("Published 17 April 2023")
-                        }
+                        span("Published 17 April 2023", className = "article-date")
                         p {
                             text("This is a proof-of-concept of gRPC's efficiency over conventional REST APIs. ")
                             code(className = "highlight") {
@@ -39,41 +37,23 @@ fun main(args: Array<String>) {
                         }
                         pre(className = "language-kotlin") {
                             code(className = "language-kotlin") {
-                                span(className = "token keyword") {
-                                    text("fun")
-                                }
+                                span("fun", className = "token keyword")
                                 text(" ")
-                                span(className = "token function") {
-                                    text("greet")
-                                }
-                                span(className = "token punctuation") {
-                                    text("() {")
-                                }
+                                span("greet", className = "token function")
+                                span("() {", className = "token punctuation")
                                 text("\n   ")
-                                span(className = "token function") {
-                                    text("println")
-                                }
-                                span(className = "token punctuation") {
-                                    text("(")
-                                }
-                                span(className = "token string") {
-                                    text("\"Hello, world\"")
-                                }
-                                span(className = "token punctuation") {
-                                    text(")")
-                                }
+                                span("println", className = "token function")
+                                span("(", className = "token punctuation")
+                                span("\"Hello, world\"", className = "token string")
+                                span(")", className = "token punctuation")
                                 text("\n")
-                                span(className = "token punctuation") {
-                                    text("}")
-                                }
+                                span("}", className = "token punctuation")
                             }
                         }
                     }
                 }
                 footer {
-                    span {
-                        text("&copy;2023 Anand Bose. All rights reserved.")
-                    }
+                    span("&copy;2023 Anand Bose. All rights reserved.")
                 }
             }
         }

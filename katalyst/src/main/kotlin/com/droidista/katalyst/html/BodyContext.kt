@@ -29,15 +29,27 @@ class BodyContext(val node: Node) : BaseContext() {
         elements.add(node)
     }
 
-    private fun textContainer(
+    fun textContainer(
+        tag: String,
         id: String? = null,
         className: String? = null,
-        tag: String,
+        customAttributes: Map<String, String?>?,
         text: String,
     ) {
         val node = Node(
             tag = tag,
             parent = node,
+            attributes = buildMap {
+                if (id != null) {
+                    put("id", id)
+                }
+                if (className != null) {
+                    put("class", className)
+                }
+                if (customAttributes != null) {
+                    putAll(customAttributes)
+                }
+            }
         )
         node.children = listOf(
             Text(
@@ -49,46 +61,53 @@ class BodyContext(val node: Node) : BaseContext() {
     }
 
     fun h1(
+        text: String,
         id: String? = null,
         className: String? = null,
-        text: String
-    ) = textContainer(id, className, "h1", text)
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("h1", id, className, customAttributes, text)
 
     fun h2(
+        text: String,
         id: String? = null,
         className: String? = null,
-        text: String
-    ) = textContainer(id, className, "h2", text)
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("h2", id, className, customAttributes, text)
 
     fun h3(
+        text: String,
         id: String? = null,
         className: String? = null,
-        text: String
-    ) = textContainer(id, className, "h3", text)
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("h3", id, className, customAttributes, text)
 
     fun h4(
+        text: String,
         id: String? = null,
         className: String? = null,
-        text: String
-    ) = textContainer(id, className, "h4", text)
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("h4", id, className, customAttributes, text)
 
     fun h5(
+        text: String,
         id: String? = null,
         className: String? = null,
-        text: String
-    ) = textContainer(id, className, "h5", text)
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("h5", id, className, customAttributes, text)
 
     fun h6(
+        text: String,
         id: String? = null,
         className: String? = null,
-        text: String
-    ) = textContainer(id, className, "h6", text)
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("h6", id, className, customAttributes, text)
 
     fun p(
+        text: String,
         id: String? = null,
         className: String? = null,
-        text: String
-    ) = textContainer(id, className, "p", text)
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("p", id, className, customAttributes, text)
 
     inline fun div(
         id: String? = null,
@@ -160,6 +179,13 @@ class BodyContext(val node: Node) : BaseContext() {
         crossinline block: BodyContext.() -> Unit,
     ) = container("span", id, className, customAttributes, block)
 
+    fun span(
+        text: String,
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("span", id, className, customAttributes, text)
+
     inline fun table(
         id: String? = null,
         className: String? = null,
@@ -206,7 +232,7 @@ class BodyContext(val node: Node) : BaseContext() {
                     put("class", className)
                 }
                 if (href != null) {
-                    put("href", className)
+                    put("href", href)
                 }
                 if (customAttributes != null) {
                     putAll(customAttributes)
