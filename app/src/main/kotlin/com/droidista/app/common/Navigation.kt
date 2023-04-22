@@ -2,7 +2,7 @@ package com.droidista.app.common
 
 import com.droidista.katalyst.html.BodyContext
 
-fun BodyContext.siteNavigation() {
+fun BodyContext.buildNavigation() {
     nav(className = "site-nav") {
         a(className = "nav-menu-item", href = "/index.html", text = "Home")
         //text("\n")
@@ -17,8 +17,10 @@ fun BodyContext.siteNavigation() {
             id = "btn-switch-dark",
             className = "nav-menu-item-toggle requires-js",
             href = "javascript:switchToDarkMode();",
-            ariaLabel = "Switch to dark mode",
-            text = "&ThickSpace;"
+            text = "&ThickSpace;",
+            customAttributes = mapOf(
+                "aria-label" to "Switch to dark mode"
+            ),
         )
         //text("\n")
         text(" ")
@@ -26,8 +28,10 @@ fun BodyContext.siteNavigation() {
             id = "btn-switch-light",
             className = "nav-menu-item-toggle requires-js",
             href = "javascript:switchToLightMode();",
-            ariaLabel = "Switch to light mode",
-            text = "&ThickSpace;"
+            text = "&ThickSpace;",
+            customAttributes = mapOf(
+                "aria-label" to "Switch to dark mode"
+            )
         )
     }
 }

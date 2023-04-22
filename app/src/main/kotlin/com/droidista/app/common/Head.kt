@@ -2,7 +2,7 @@ package com.droidista.app.common
 
 import com.droidista.katalyst.html.HtmlContext
 
-fun HtmlContext.siteHeadContext(title: String, description: String, imagePath: String) {
+fun HtmlContext.buildHeadContent(title: String, description: String, imagePath: String) {
     head {
         meta(charset = "utf-8")
         title(title)
