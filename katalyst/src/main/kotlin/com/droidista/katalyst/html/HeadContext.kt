@@ -1,6 +1,8 @@
 package com.droidista.katalyst.html
 
-class HeadContext(val node: Node) : BaseContext() {
+import com.droidista.katalyst.util.Environment
+
+class HeadContext(val node: Node, environment: Environment) : BaseContext(environment) {
     fun title(title: String) {
         val node = Node(
             tag = "title",

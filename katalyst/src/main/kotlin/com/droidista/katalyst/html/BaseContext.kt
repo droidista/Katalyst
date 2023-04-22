@@ -1,12 +1,12 @@
 package com.droidista.katalyst.html
 
-import java.io.File
+import com.droidista.katalyst.util.Environment
 
-open class BaseContext {
+open class BaseContext(val environment: Environment) {
     val elements = mutableListOf<Element>()
 }
 
-class DocumentContext {
+class DocumentContext(val environment: Environment) {
     private var rootNode: Node? = null
     fun html(
         lang: String = "en-US",
@@ -22,7 +22,7 @@ class DocumentContext {
                 }
             },
         )
-        val context = HtmlContext(node)
+        val context = HtmlContext(node, environment)
         block(context)
         node.children = context.elements
         rootNode = node
@@ -34,21 +34,30 @@ class DocumentContext {
         }
         return "<!DOCTYPE html>\n${rootNode.render()}"
     }
-
-    fun save(outputFile: File) {
-        val output = getHtmlRepresentation()
-        if (outputFile.exists()) {
-            outputFile.delete()
-        }
-        outputFile.createNewFile()
-        outputFile.outputStream().use {
-            it.write(output.toByteArray(Charsets.UTF_8))
-        }
-    }
 }
 
-inline fun document(crossinline block: DocumentContext.() -> Unit): DocumentContext {
-    val context = DocumentContext()
+inline fun document(
+    environment: Environment,
+    path: String,
+    isOverwriteAllowed: Boolean = true,
+    crossinline block: DocumentContext.() -> Unit,
+): DocumentContext {
+    val outputFile = environment.getAbsoluteOutputPath(path)
+    val context = DocumentContext(environment)
     block(context)
+    if (outputFile.isDirectory) {
+        error("The path ${outputFile.absolutePath} is a dir.")
+    }
+    if (!isOverwriteAllowed && outputFile.exists()) {
+        error("The file ${outputFile.absolutePath} exists. Set isOverwriteAllowed = true to allow overwriting file contents.")
+    }
+    val output = context.getHtmlRepresentation()
+    if (outputFile.exists()) {
+        outputFile.delete()
+    }
+    outputFile.createNewFile()
+    outputFile.outputStream().use {
+        it.write(output.toByteArray(Charsets.UTF_8))
+    }
     return context
 }

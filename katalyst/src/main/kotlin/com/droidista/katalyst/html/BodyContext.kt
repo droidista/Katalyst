@@ -1,6 +1,8 @@
 package com.droidista.katalyst.html
 
-class BodyContext(val node: Node) : BaseContext() {
+import com.droidista.katalyst.util.Environment
+
+class BodyContext(val node: Node, environment: Environment) : BaseContext(environment) {
     inline fun container(
         tag: String,
         id: String? = null,
@@ -23,7 +25,7 @@ class BodyContext(val node: Node) : BaseContext() {
                 }
             }
         )
-        val context = BodyContext(node)
+        val context = BodyContext(node, environment)
         block(context)
         node.children = context.elements
         elements.add(node)
@@ -56,6 +58,30 @@ class BodyContext(val node: Node) : BaseContext() {
                 text = text,
                 parent = node,
             ),
+        )
+        elements.add(node)
+    }
+
+    fun singleNode(
+        tag: String,
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>?,
+    ) {
+        val node = Node(
+            tag = tag,
+            parent = node,
+            attributes = buildMap {
+                if (id != null) {
+                    put("id", id)
+                }
+                if (className != null) {
+                    put("class", className)
+                }
+                if (customAttributes != null) {
+                    putAll(customAttributes)
+                }
+            }
         )
         elements.add(node)
     }
@@ -239,7 +265,7 @@ class BodyContext(val node: Node) : BaseContext() {
                 }
             }
         )
-        val context = BodyContext(node)
+        val context = BodyContext(node, environment)
         block(context)
         node.children = context.elements
         elements.add(node)
@@ -293,5 +319,70 @@ class BodyContext(val node: Node) : BaseContext() {
             parent = node,
         )
         elements.add(node)
+    }
+
+    fun img(
+        id: String? = null,
+        className: String? = null,
+        src: String? = null,
+        srcSet: String? = null,
+        alt: String? = null,
+        customAttributes: Map<String, String?>?,
+    ) {
+        singleNode(
+            "img", id, className,
+            buildMap {
+                if (src != null) {
+                    put("src", src)
+                }
+                if (srcSet != null) {
+                    put("srcset", srcSet)
+                }
+                if (alt != null) {
+                    put("alt", alt)
+                }
+                if (customAttributes != null) {
+                    putAll(customAttributes)
+                }
+            }
+        )
+    }
+
+    inline fun picture(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        crossinline block: BodyContext.() -> Unit,
+    ) = container("picture", id, className, customAttributes, block)
+
+    fun source(
+        id: String? = null,
+        className: String? = null,
+        type: String? = null,
+        src: String? = null,
+        srcSet: String? = null,
+        alt: String? = null,
+        customAttributes: Map<String, String?>?,
+    ) {
+        singleNode(
+            "source", id, className,
+            buildMap {
+                if (type != null) {
+                    put("type", type)
+                }
+                if (src != null) {
+                    put("src", src)
+                }
+                if (srcSet != null) {
+                    put("srcset", srcSet)
+                }
+                if (alt != null) {
+                    put("alt", alt)
+                }
+                if (customAttributes != null) {
+                    putAll(customAttributes)
+                }
+            }
+        )
     }
 }
