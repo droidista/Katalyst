@@ -1,4 +1,4 @@
-package com.droidista.katalyst.util
+package com.droidista.katalyst.environment
 
 import java.io.File
 import kotlin.io.path.relativeTo

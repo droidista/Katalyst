@@ -1,6 +1,6 @@
 package com.droidista.katalyst.html
 
-import com.droidista.katalyst.util.Environment
+import com.droidista.katalyst.environment.Environment
 
 class HtmlContext(val node: Node, environment: Environment) : BaseContext(environment) {
     fun head(block: HeadContext.() -> Unit) {

@@ -1,13 +1,14 @@
 package com.droidista.katalyst.html
 
-import com.droidista.katalyst.util.Environment
+import com.droidista.katalyst.environment.Environment
 
 open class BaseContext(val environment: Environment) {
     val elements = mutableListOf<Element>()
 }
 
 class DocumentContext(val environment: Environment) {
-    private var rootNode: Node? = null
+    var rootNode: Node? = null
+        private set
     fun html(
         lang: String = "en-US",
         customAttributes: Map<String, String?>? = null,
@@ -45,6 +46,7 @@ inline fun document(
     val outputFile = environment.getAbsoluteOutputPath(path)
     val context = DocumentContext(environment)
     block(context)
+    renderDeferredNodes(context.rootNode!!, environment)
     if (outputFile.isDirectory) {
         error("The path ${outputFile.absolutePath} is a dir.")
     }

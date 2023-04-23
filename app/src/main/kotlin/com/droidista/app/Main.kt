@@ -1,8 +1,8 @@
 package com.droidista.app
 
-import com.droidista.katalyst.util.Environment
-import com.droidista.katalyst.util.clean
-import com.droidista.katalyst.util.copyStaticAssets
+import com.droidista.katalyst.environment.Environment
+import com.droidista.katalyst.environment.clean
+import com.droidista.katalyst.environment.copyStaticAssets
 import java.io.File
 
 fun main(args: Array<String>) {

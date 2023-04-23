@@ -1,6 +1,7 @@
 package com.droidista.katalyst.html
 
-import com.droidista.katalyst.util.Environment
+import com.droidista.katalyst.generator.DeferredGenerator
+import com.droidista.katalyst.environment.Environment
 
 class HeadContext(val node: Node, environment: Environment) : BaseContext(environment) {
     fun title(title: String) {
@@ -8,7 +9,7 @@ class HeadContext(val node: Node, environment: Environment) : BaseContext(enviro
             tag = "title",
             parent = node,
         )
-        node.children = listOf(
+        node.children = mutableListOf(
             Text(
                 text = title,
                 parent = node,
@@ -90,10 +91,14 @@ class HeadContext(val node: Node, environment: Environment) : BaseContext(enviro
                     put("defer", null)
                 }
             },
-            children = listOf(
+            children = mutableListOf(
                 Text(text = "")
             ),
         )
         elements.add(node)
+    }
+
+    fun deferred(generator: DeferredGenerator) {
+        elements.add(Deferred(generator))
     }
 }

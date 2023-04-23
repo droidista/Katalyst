@@ -1,6 +1,6 @@
 package com.droidista.katalyst.html
 
-import com.droidista.katalyst.util.Environment
+import com.droidista.katalyst.environment.Environment
 
 class BodyContext(val node: Node, environment: Environment) : BaseContext(environment) {
     inline fun container(
@@ -53,7 +53,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
                 }
             }
         )
-        node.children = listOf(
+        node.children = mutableListOf(
             Text(
                 text = text,
                 parent = node,
@@ -296,7 +296,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
                 }
             },
         )
-        node.children = listOf(
+        node.children = mutableListOf(
             Text(
                 text = text,
                 parent = node,
