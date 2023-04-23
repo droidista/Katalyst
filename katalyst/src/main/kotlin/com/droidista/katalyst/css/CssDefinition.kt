@@ -3,7 +3,7 @@ package com.droidista.katalyst.css
 import com.droidista.katalyst.html.Node
 
 data class CssDefinition(
-    var matchers: List<CssMatcher>,
+    var matchers: List<CssMatcher>? = null,
     var selectors: List<String>? = null,
     var query: String? = null,
     var declarations: Map<String, String>? = null,

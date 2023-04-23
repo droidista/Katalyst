@@ -31,9 +31,9 @@ class InlineStyleGenerator(val cssDefinitionList: List<CssDefinition>) : Deferre
             if (element is Node) {
                 cssSet.addAll(
                     cssDefinitionList.filter { cssDefinition ->
-                        cssDefinition.matchers.any { matcher ->
+                        cssDefinition.matchers?.any { matcher ->
                             matcher.matches(element)
-                        }
+                        } == true
                     }
                 )
                 val children = element.children
