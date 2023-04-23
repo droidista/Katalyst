@@ -1,6 +1,6 @@
 package com.droidista.app.common
 
-import com.droidista.app.css
+import com.droidista.app.css.css
 import com.droidista.katalyst.generator.InlineStyleGenerator
 import com.droidista.katalyst.html.HtmlContext
 
@@ -36,7 +36,7 @@ fun HtmlContext.buildHeadContent(title: String, description: String, imagePath: 
         meta(name = "twitter:creator", content = "@droidista")
         meta(name = "twitter:site", content = "@droidista")
 
-        link(rel = "stylesheet", href = "/styles/base.css")
+        //link(rel = "stylesheet", href = "/styles/base.css")
         deferred(InlineStyleGenerator(css))
         link(rel = "stylesheet", href = "/styles/prism/prismjs-night-owl.css")
 

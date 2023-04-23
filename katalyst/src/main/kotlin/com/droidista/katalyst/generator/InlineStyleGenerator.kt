@@ -61,16 +61,28 @@ class InlineStyleGenerator(val cssDefinitionList: List<CssDefinition>) : Deferre
     }
 
     private fun resolveDependencies(definitions: MutableSet<CssDefinition>) {
-        val iterator = definitions.iterator()
-        while (iterator.hasNext()) {
-            val definition = iterator.next()
-            val dependencyTags = definition.depends
-            if (!dependencyTags.isNullOrEmpty()) {
-                dependencyTags.forEach { requiredDependencyTag ->
-                    val list = cssDefinitionList.filter { externalDefinition ->
-                        externalDefinition.dependencyTag == requiredDependencyTag
+        var iterator = definitions.iterator()
+        var dependencies = mutableSetOf<CssDefinition>()
+        while (true) {
+            if (iterator.hasNext()) {
+                val definition = iterator.next()
+                val dependencyTags = definition.depends
+                if (!dependencyTags.isNullOrEmpty()) {
+                    dependencyTags.forEach { requiredDependencyTag ->
+                        val list = cssDefinitionList.filter { externalDefinition ->
+                            externalDefinition.dependencyTag == requiredDependencyTag
+                        }
+                        dependencies.addAll(list)
                     }
-                    definitions.addAll(list)
+                }
+            } else {
+                if (dependencies.isNotEmpty()) {
+                    definitions.addAll(dependencies)
+                    iterator = dependencies.iterator()
+                    dependencies = mutableSetOf()
+                    continue
+                } else {
+                    break
                 }
             }
         }

@@ -27,13 +27,23 @@ data class CssDefinition(
     private fun renderRuleSet(): String {
         return buildString {
             val selectors = selectors
-            if (!selectors.isNullOrEmpty()) {
-                append(selectors.joinToString())
-                append(" { ")
-                append(renderDeclarations())
-                append("} ")
-            } else {
-                append(renderDeclarations())
+            val matchers = matchers
+            when {
+                !selectors.isNullOrEmpty() -> {
+                    append(selectors.joinToString())
+                    append(" { ")
+                    append(renderDeclarations())
+                    append("} ")
+                }
+                !matchers.isNullOrEmpty() -> {
+                    append(matchers.joinToString { it.toCssNotation() })
+                    append(" { ")
+                    append(renderDeclarations())
+                    append("} ")
+                }
+                else -> {
+                    append(renderDeclarations())
+                }
             }
         }
     }
@@ -52,6 +62,8 @@ data class CssDefinition(
 
 interface CssMatcher {
     fun matches(node: Node): Boolean
+
+    fun toCssNotation(): String
 }
 
 data class Id(val id: String): CssMatcher {
@@ -59,6 +71,8 @@ data class Id(val id: String): CssMatcher {
         val nodeId = node.attributes?.get("id")
         return id == nodeId
     }
+
+    override fun toCssNotation(): String = "#$id"
 }
 
 data class ClassName(val className: String): CssMatcher {
@@ -66,12 +80,16 @@ data class ClassName(val className: String): CssMatcher {
         val classNames = node.attributes?.get("class")?.split(" ")
         return classNames?.contains(className) == true
     }
+
+    override fun toCssNotation(): String = ".$className"
 }
 
 data class Tag(val tag: String): CssMatcher {
     override fun matches(node: Node): Boolean {
         return  node.tag == tag
     }
+
+    override fun toCssNotation(): String = tag
 }
 
 data class Attribute(val key: String, val value: String?): CssMatcher {
@@ -83,23 +101,50 @@ data class Attribute(val key: String, val value: String?): CssMatcher {
         }
     }
 
-}
-
-data class Combinator(val matchers: List<CssMatcher>): CssMatcher {
-    override fun matches(node: Node): Boolean {
-        val reversed = matchers.reversed()
-        var current: Node? = node
-        reversed.forEach { matcher ->
-            val isMatching = current?.let { matcher.matches(it) } == true
-            if (!isMatching) return false
-            current = current?.parent
+    override fun toCssNotation(): String {
+        return buildString {
+            append("[")
+            append(key)
+            if (value != null) {
+                append("=")
+                append("\"$value\"")
+            }
+            append("]")
         }
-        return true
     }
 }
-data class AllOf(val matchers: List<CssMatcher>): CssMatcher {
-    constructor(vararg matchers: CssMatcher): this(matchers.toList())
+
+data class All(
+    val tag: String? = null,
+    val classNames: List<String>? = null,
+    val pseudoClassNames: List<String>? = null,
+    val id: String? = null,
+): CssMatcher {
+
     override fun matches(node: Node): Boolean {
-        return matchers.all { it.matches(node) }
+        val isTagMatch = tag == null || node.tag == tag
+        val isClassNamesMatch = if (!classNames.isNullOrEmpty()) {
+            val nodeClassNames = node.attributes?.get("class")?.split(" ")
+            nodeClassNames == null || nodeClassNames.containsAll(classNames)
+        } else true
+        val isIdMatch = id == null || node.attributes?.get("id") == id
+        return isTagMatch && isClassNamesMatch && isIdMatch
+    }
+
+    override fun toCssNotation(): String {
+        return buildString {
+            if (tag != null) {
+                append(tag)
+            }
+            pseudoClassNames?.forEach { pseudoClassName ->
+                append(":$pseudoClassName")
+            }
+            classNames?.forEach { className ->
+                append(".$className")
+            }
+            if (id != null) {
+                append("#$id")
+            }
+        }
     }
 }
