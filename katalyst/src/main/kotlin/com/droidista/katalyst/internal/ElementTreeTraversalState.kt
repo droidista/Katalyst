@@ -1,6 +1,6 @@
-package com.droidista.katalyst.util
+package com.droidista.katalyst.internal
 
-import com.droidista.katalyst.html.Element
+import com.droidista.katalyst.dom.Element
 
 internal data class ElementTreeTraversalState(
     val elementList: MutableList<Element>,

@@ -25,7 +25,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("html")
+            TagName("html")
         ),
         declarations = mapOf(
             "background-color" to "var(--background-color)",
@@ -37,7 +37,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("html")
+            TagName("html")
         ),
         query = "@supports (font-variation-settings: normal)",
         declarations = mapOf(
@@ -47,8 +47,8 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("code"),
-            Tag("pre")
+            TagName("code"),
+            TagName("pre")
         ),
         declarations = mapOf(
             "font-family" to "'JetBrains Mono', monospace",
@@ -58,13 +58,13 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("h1"),
-            Tag("h2"),
-            Tag("h3"),
-            Tag("h4"),
-            Tag("h5"),
-            Tag("h6"),
-            Tag("p"),
+            TagName("h1"),
+            TagName("h2"),
+            TagName("h3"),
+            TagName("h4"),
+            TagName("h5"),
+            TagName("h6"),
+            TagName("p"),
         ),
         declarations = mapOf(
             "color" to "var(--text-color)",
@@ -73,8 +73,8 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("li"),
-            Tag("p"),
+            TagName("li"),
+            TagName("p"),
         ),
         declarations = mapOf(
             "line-height" to "1.5em",
@@ -82,7 +82,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("h2"),
+            TagName("h2"),
         ),
         declarations = mapOf(
             "margin-bottom" to "0.5rem"
@@ -90,7 +90,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("a"),
+            TagName("a"),
         ),
         declarations = mapOf(
             "color" to "var(--link-color-normal)",
@@ -100,7 +100,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            All(tag = "a", pseudoClassNames = listOf("hover"))
+            All(tagName = "a", pseudoClassNames = listOf("hover"))
         ),
         declarations = mapOf(
             "text-decoration" to "underline",
@@ -108,7 +108,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            All(tag = "a", pseudoClassNames = listOf("visited"))
+            All(tagName = "a", pseudoClassNames = listOf("visited"))
         ),
         declarations = mapOf(
             "color" to "var(--link-color-visited)",
@@ -126,7 +126,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("footer")
+            TagName("footer")
         ),
         declarations = mapOf(
             "color" to "var(--text-color)",
@@ -138,7 +138,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            All(tag = "a", classNames = listOf("nav-menu-item")),
+            All(tagName = "a", classNames = listOf("nav-menu-item")),
         ),
         declarations = mapOf(
             "display" to "inline-block",
@@ -173,7 +173,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("blockquote"),
+            TagName("blockquote"),
         ),
         declarations = mapOf(
             "padding" to ".5rem 1rem",
@@ -184,7 +184,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("blockquote"),
+            TagName("blockquote"),
         ),
         selectors = listOf(
             "blockquote p:last-child"
@@ -195,7 +195,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("pre"),
+            TagName("pre"),
         ),
         declarations = mapOf(
             "overflow-x" to "auto",
@@ -205,9 +205,9 @@ val baseCss = listOf(
     CssDefinition(
         query = "@media screen and (min-width: 38rem)",
         matchers = listOf(
-            Tag("header"),
-            Tag("main"),
-            Tag("footer"),
+            TagName("header"),
+            TagName("main"),
+            TagName("footer"),
         ),
         declarations = mapOf(
             "width" to "38rem",
@@ -218,7 +218,7 @@ val baseCss = listOf(
     CssDefinition(
         query = "@media screen and (min-width: 38rem)",
         matchers = listOf(
-            Tag("blockquote"),
+            TagName("blockquote"),
         ),
         declarations = mapOf(
             "padding-right" to "5rem",
@@ -238,7 +238,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("table")
+            TagName("table")
         ),
         declarations = mapOf(
             "border-spacing" to "0px"
@@ -246,7 +246,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            Tag("td")
+            TagName("td")
         ),
         declarations = mapOf(
             "padding" to "0.5em 0em",
@@ -254,7 +254,7 @@ val baseCss = listOf(
     ),
     CssDefinition(
         matchers = listOf(
-            All(tag = "a", classNames = listOf("value")),
+            All(tagName = "a", classNames = listOf("value")),
         ),
         declarations = mapOf(
             "display" to "block",

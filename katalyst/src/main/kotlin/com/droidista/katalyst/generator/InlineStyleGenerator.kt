@@ -1,11 +1,11 @@
 package com.droidista.katalyst.generator
 
 import com.droidista.katalyst.css.CssDefinition
-import com.droidista.katalyst.html.Element
-import com.droidista.katalyst.html.Node
-import com.droidista.katalyst.util.ElementTreeTraversalState
+import com.droidista.katalyst.dom.Element
+import com.droidista.katalyst.dom.Node
+import com.droidista.katalyst.internal.ElementTreeTraversalState
 import com.droidista.katalyst.environment.Environment
-import com.droidista.katalyst.html.Text
+import com.droidista.katalyst.dom.Text
 import java.util.EmptyStackException
 import java.util.Stack
 

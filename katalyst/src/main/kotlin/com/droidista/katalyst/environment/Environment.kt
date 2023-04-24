@@ -22,6 +22,7 @@ fun clean(environment: Environment) {
         environment.outputDir.deleteRecursively()
     }
     environment.outputDir.mkdir()
+    println("clean: ${environment.outputDir.absolutePath}")
 }
 
 fun copyStaticAssets(environment: Environment) {
@@ -32,7 +33,7 @@ fun copyStaticAssets(environment: Environment) {
         val path = it.toPath()
         val relativePathInBaseDir = path.relativeTo(baseDirPath)
         val absolutePathInOutputDir = outputDirPath.resolve(relativePathInBaseDir)
-        println("${if (it.isDirectory) "DIR " else "FILE"} $path -> $absolutePathInOutputDir")
+        println("copyStaticAssets: ${if (it.isDirectory) "DIR " else "FILE"} $path -> $absolutePathInOutputDir")
         val target = absolutePathInOutputDir.toFile()
         if (it.isDirectory) {
             target.mkdir()

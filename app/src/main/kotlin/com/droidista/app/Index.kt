@@ -2,7 +2,7 @@ package com.droidista.app
 
 import com.droidista.app.common.buildHeadContent
 import com.droidista.app.common.buildNavigation
-import com.droidista.katalyst.html.document
+import com.droidista.katalyst.dom.document
 import com.droidista.katalyst.environment.Environment
 
 fun buildIndexPage(environment: Environment) {
@@ -57,5 +57,4 @@ fun buildIndexPage(environment: Environment) {
             }
         }
     }
-    print(indexHtml.getHtmlRepresentation())
 }

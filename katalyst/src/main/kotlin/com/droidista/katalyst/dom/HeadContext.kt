@@ -1,4 +1,4 @@
-package com.droidista.katalyst.html
+package com.droidista.katalyst.dom
 
 import com.droidista.katalyst.generator.DeferredGenerator
 import com.droidista.katalyst.environment.Environment
@@ -6,7 +6,7 @@ import com.droidista.katalyst.environment.Environment
 class HeadContext(val node: Node, environment: Environment) : BaseContext(environment) {
     fun title(title: String) {
         val node = Node(
-            tag = "title",
+            tagName = "title",
             parent = node,
         )
         node.children = mutableListOf(
@@ -25,7 +25,7 @@ class HeadContext(val node: Node, environment: Environment) : BaseContext(enviro
         content: String? = null,
     ) {
         val node = Node(
-            tag = "meta",
+            tagName = "meta",
             parent = node,
             attributes = buildMap {
                 if (charset != null) {
@@ -52,7 +52,7 @@ class HeadContext(val node: Node, environment: Environment) : BaseContext(enviro
         href: String? = null,
     ) {
         val node = Node(
-            tag = "link",
+            tagName = "link",
             parent = node,
             attributes = buildMap {
                 if (rel != null) {
@@ -78,7 +78,7 @@ class HeadContext(val node: Node, environment: Environment) : BaseContext(enviro
         defer: Boolean = false,
     ) {
         val node = Node(
-            tag = "script",
+            tagName = "script",
             parent = node,
             attributes = buildMap {
                 if (src != null) {

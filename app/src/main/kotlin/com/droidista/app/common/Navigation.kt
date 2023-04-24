@@ -1,6 +1,6 @@
 package com.droidista.app.common
 
-import com.droidista.katalyst.html.BodyContext
+import com.droidista.katalyst.dom.BodyContext
 
 fun BodyContext.buildNavigation() {
     nav(className = "site-nav") {

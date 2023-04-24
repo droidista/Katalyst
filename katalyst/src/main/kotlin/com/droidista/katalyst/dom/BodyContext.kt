@@ -1,4 +1,4 @@
-package com.droidista.katalyst.html
+package com.droidista.katalyst.dom
 
 import com.droidista.katalyst.environment.Environment
 
@@ -11,7 +11,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         crossinline block: BodyContext.() -> Unit,
     ) {
         val node = Node(
-            tag = tag,
+            tagName = tag,
             parent = node,
             attributes = buildMap {
                 if (id != null) {
@@ -39,7 +39,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         text: String,
     ) {
         val node = Node(
-            tag = tag,
+            tagName = tag,
             parent = node,
             attributes = buildMap {
                 if (id != null) {
@@ -69,7 +69,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         customAttributes: Map<String, String?>?,
     ) {
         val node = Node(
-            tag = tag,
+            tagName = tag,
             parent = node,
             attributes = buildMap {
                 if (id != null) {
@@ -248,7 +248,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         crossinline block: BodyContext.() -> Unit,
     ) {
         val node = Node(
-            tag = "a",
+            tagName = "a",
             parent = node,
             attributes = buildMap {
                 if (id != null) {
@@ -279,7 +279,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         customAttributes: Map<String, String?>? = null,
     ) {
         val node = Node(
-            tag = "a",
+            tagName = "a",
             parent = node,
             attributes = buildMap {
                 if (id != null) {
@@ -315,7 +315,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
 
     fun br() {
         val node = Node(
-            tag = "br",
+            tagName = "br",
             parent = node,
         )
         elements.add(node)

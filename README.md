@@ -10,10 +10,13 @@ This project is organized as two modules:
 
 ## Roadmap
 
-➡️ A minimal, type safe DSL for building DOM trees and reusing them
+✅ A minimal, type safe DSL for building and reusing DOM trees.
 
 
-➡️ A static DOM analyzer which iterates over the DOM tree and statically adds CSS rules to the HTML page
+✅ Concept of `Deferred` nodes, `DeferredGenerator` and analyzer that iterates over the entire DOM tree and replace deferred nodes with the newly generated tree.
+
+
+➡️ API documentation, maven artifact publishing, project template and website for beginners to get started.
 
 
 ➡️ Pluggable adapters for covering common use cases like pagination, image optimization and further enhancements

@@ -1,11 +1,11 @@
-package com.droidista.katalyst.html
+package com.droidista.katalyst.dom
 
 import com.droidista.katalyst.environment.Environment
 
 class HtmlContext(val node: Node, environment: Environment) : BaseContext(environment) {
     fun head(block: HeadContext.() -> Unit) {
         val node = Node(
-            tag = "head",
+            tagName = "head",
             parent = node,
         )
         val context = HeadContext(node, environment)
@@ -16,7 +16,7 @@ class HtmlContext(val node: Node, environment: Environment) : BaseContext(enviro
 
     fun body(block: BodyContext.() -> Unit) {
         val node = Node(
-            tag = "body",
+            tagName = "body",
             parent = node,
         )
         val context = BodyContext(node, environment)

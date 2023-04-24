@@ -2,7 +2,7 @@ package com.droidista.app.common
 
 import com.droidista.app.css.css
 import com.droidista.katalyst.generator.InlineStyleGenerator
-import com.droidista.katalyst.html.HtmlContext
+import com.droidista.katalyst.dom.HtmlContext
 
 fun HtmlContext.buildHeadContent(title: String, description: String, imagePath: String) {
     head {

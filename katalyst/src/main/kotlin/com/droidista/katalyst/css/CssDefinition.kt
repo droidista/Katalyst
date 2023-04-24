@@ -1,6 +1,6 @@
 package com.droidista.katalyst.css
 
-import com.droidista.katalyst.html.Node
+import com.droidista.katalyst.dom.Node
 
 data class CssDefinition(
     var matchers: List<CssMatcher>? = null,
@@ -68,8 +68,7 @@ interface CssMatcher {
 
 data class Id(val id: String): CssMatcher {
     override fun matches(node: Node): Boolean {
-        val nodeId = node.attributes?.get("id")
-        return id == nodeId
+        return id == node.id
     }
 
     override fun toCssNotation(): String = "#$id"
@@ -77,19 +76,18 @@ data class Id(val id: String): CssMatcher {
 
 data class ClassName(val className: String): CssMatcher {
     override fun matches(node: Node): Boolean {
-        val classNames = node.attributes?.get("class")?.split(" ")
-        return classNames?.contains(className) == true
+        return node.classNames?.contains(className) == true
     }
 
     override fun toCssNotation(): String = ".$className"
 }
 
-data class Tag(val tag: String): CssMatcher {
+data class TagName(val tagName: String): CssMatcher {
     override fun matches(node: Node): Boolean {
-        return  node.tag == tag
+        return  node.tagName == tagName
     }
 
-    override fun toCssNotation(): String = tag
+    override fun toCssNotation(): String = tagName
 }
 
 data class Attribute(val key: String, val value: String?): CssMatcher {
@@ -115,26 +113,26 @@ data class Attribute(val key: String, val value: String?): CssMatcher {
 }
 
 data class All(
-    val tag: String? = null,
+    val tagName: String? = null,
     val classNames: List<String>? = null,
     val pseudoClassNames: List<String>? = null,
     val id: String? = null,
 ): CssMatcher {
 
     override fun matches(node: Node): Boolean {
-        val isTagMatch = tag == null || node.tag == tag
+        val isTagMatch = tagName == null || node.tagName == tagName
         val isClassNamesMatch = if (!classNames.isNullOrEmpty()) {
-            val nodeClassNames = node.attributes?.get("class")?.split(" ")
+            val nodeClassNames = node.classNames
             nodeClassNames == null || nodeClassNames.containsAll(classNames)
         } else true
-        val isIdMatch = id == null || node.attributes?.get("id") == id
+        val isIdMatch = id == null || node.id == id
         return isTagMatch && isClassNamesMatch && isIdMatch
     }
 
     override fun toCssNotation(): String {
         return buildString {
-            if (tag != null) {
-                append(tag)
+            if (tagName != null) {
+                append(tagName)
             }
             pseudoClassNames?.forEach { pseudoClassName ->
                 append(":$pseudoClassName")

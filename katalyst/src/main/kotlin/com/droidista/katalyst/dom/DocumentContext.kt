@@ -1,10 +1,6 @@
-package com.droidista.katalyst.html
+package com.droidista.katalyst.dom
 
 import com.droidista.katalyst.environment.Environment
-
-open class BaseContext(val environment: Environment) {
-    val elements = mutableListOf<Element>()
-}
 
 class DocumentContext(val environment: Environment) {
     var rootNode: Node? = null
@@ -15,7 +11,7 @@ class DocumentContext(val environment: Environment) {
         block: HtmlContext.() -> Unit,
     ) {
         val node = Node(
-            tag = "html",
+            tagName = "html",
             attributes = buildMap {
                 put("lang", lang)
                 if (customAttributes != null) {
@@ -46,7 +42,15 @@ inline fun document(
     val outputFile = environment.getAbsoluteOutputPath(path)
     val context = DocumentContext(environment)
     block(context)
-    renderDeferredNodes(context.rootNode!!, environment)
+    var deferredNodeRenderPhase = 0
+    while (true) {
+        val renderCount = renderDeferredNodes(context.rootNode!!, environment)
+        println("Render Deferred Nodes - Phase $deferredNodeRenderPhase rendered $renderCount node")
+        if (renderCount == 0) {
+            break
+        }
+        deferredNodeRenderPhase++
+    }
     if (outputFile.isDirectory) {
         error("The path ${outputFile.absolutePath} is a dir.")
     }
