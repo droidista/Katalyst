@@ -385,4 +385,46 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
             }
         )
     }
+
+    inline fun b(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        crossinline block: BodyContext.() -> Unit,
+    ) = container("b", id, className, customAttributes, block)
+
+    inline fun i(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        crossinline block: BodyContext.() -> Unit,
+    ) = container("i", id, className, customAttributes, block)
+
+    inline fun u(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        crossinline block: BodyContext.() -> Unit,
+    ) = container("u", id, className, customAttributes, block)
+
+    fun b(
+        text: String,
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("b", id, className, customAttributes, text)
+
+    fun i(
+        text: String,
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("i", id, className, customAttributes, text)
+
+    fun u(
+        text: String,
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("u", id, className, customAttributes, text)
 }
