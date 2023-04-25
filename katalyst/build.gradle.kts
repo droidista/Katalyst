@@ -20,5 +20,6 @@ kotlin {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk9:1.6.4")
     testImplementation(kotlin("test"))
 }

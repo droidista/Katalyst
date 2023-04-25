@@ -5,12 +5,8 @@ import com.droidista.app.common.buildNavigation
 import com.droidista.katalyst.dom.document
 import com.droidista.katalyst.environment.Environment
 
-fun buildIndexPage(environment: Environment) {
-    val indexHtml = document(
-        environment = environment,
-        isOverwriteAllowed = true,
-        path = "/index.html"
-    ) {
+suspend fun buildIndexPage(environment: Environment) {
+    val indexHtml = document(environment) {
         html {
             buildHeadContent(
                 title = "Anand's Blog",
@@ -57,4 +53,6 @@ fun buildIndexPage(environment: Environment) {
             }
         }
     }
+    indexHtml.recursivelyResolveDeferredNodes()
+    indexHtml.writeToFile("/index.html")
 }

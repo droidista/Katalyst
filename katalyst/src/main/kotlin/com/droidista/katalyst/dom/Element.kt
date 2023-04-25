@@ -66,7 +66,7 @@ class Deferred(val generator: DeferredGenerator) : Element {
 
 }
 
-fun renderDeferredNodes(root: Node, environment: Environment): Int {
+fun resolveDeferredNodes(root: Node, environment: Environment): Int {
     val stack = Stack<ElementTreeTraversalState>()
     var elementList = mutableListOf<Element>(root)
     var index = 0

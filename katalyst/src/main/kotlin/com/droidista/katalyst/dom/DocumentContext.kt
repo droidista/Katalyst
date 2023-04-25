@@ -1,6 +1,8 @@
 package com.droidista.katalyst.dom
 
 import com.droidista.katalyst.environment.Environment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class DocumentContext(val environment: Environment) {
     var rootNode: Node? = null
@@ -31,39 +33,43 @@ class DocumentContext(val environment: Environment) {
         }
         return "<!DOCTYPE html>\n${rootNode.render()}"
     }
+
+    suspend fun recursivelyResolveDeferredNodes() = withContext(Dispatchers.Default) {
+        var deferredNodeRenderPhase = 0
+        while (true) {
+            val renderCount = resolveDeferredNodes(rootNode!!, environment)
+            println("recursivelyResolveDeferredNodes: Phase $deferredNodeRenderPhase rendered $renderCount node")
+            if (renderCount == 0) {
+                break
+            }
+            deferredNodeRenderPhase++
+        }
+    }
+
+    suspend fun writeToFile(relativePath: String, isOverwriteAllowed: Boolean = true) = withContext(Dispatchers.IO) {
+        val outputFile = environment.getAbsoluteOutputPath(relativePath)
+        if (outputFile.isDirectory) {
+            error("The path ${outputFile.absolutePath} is a dir.")
+        }
+        if (!isOverwriteAllowed && outputFile.exists()) {
+            error("The file ${outputFile.absolutePath} exists. Set isOverwriteAllowed = true to allow overwriting file contents.")
+        }
+        val output = getHtmlRepresentation()
+        if (outputFile.exists()) {
+            outputFile.delete()
+        }
+        outputFile.createNewFile()
+        outputFile.outputStream().use {
+            it.write(output.toByteArray(Charsets.UTF_8))
+        }
+    }
 }
 
 inline fun document(
     environment: Environment,
-    path: String,
-    isOverwriteAllowed: Boolean = true,
     crossinline block: DocumentContext.() -> Unit,
 ): DocumentContext {
-    val outputFile = environment.getAbsoluteOutputPath(path)
     val context = DocumentContext(environment)
     block(context)
-    var deferredNodeRenderPhase = 0
-    while (true) {
-        val renderCount = renderDeferredNodes(context.rootNode!!, environment)
-        println("Render Deferred Nodes - Phase $deferredNodeRenderPhase rendered $renderCount node")
-        if (renderCount == 0) {
-            break
-        }
-        deferredNodeRenderPhase++
-    }
-    if (outputFile.isDirectory) {
-        error("The path ${outputFile.absolutePath} is a dir.")
-    }
-    if (!isOverwriteAllowed && outputFile.exists()) {
-        error("The file ${outputFile.absolutePath} exists. Set isOverwriteAllowed = true to allow overwriting file contents.")
-    }
-    val output = context.getHtmlRepresentation()
-    if (outputFile.exists()) {
-        outputFile.delete()
-    }
-    outputFile.createNewFile()
-    outputFile.outputStream().use {
-        it.write(output.toByteArray(Charsets.UTF_8))
-    }
     return context
 }

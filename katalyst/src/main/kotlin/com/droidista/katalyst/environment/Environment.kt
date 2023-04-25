@@ -1,5 +1,10 @@
 package com.droidista.katalyst.environment
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.io.path.relativeTo
 
@@ -25,20 +30,22 @@ fun clean(environment: Environment) {
     println("clean: ${environment.outputDir.absolutePath}")
 }
 
-fun copyStaticAssets(environment: Environment) {
+suspend fun copyStaticAssets(environment: Environment) = withContext(Dispatchers.IO) {
     println("copyStaticAssets: baseDir = ${environment.baseDir.absolutePath}")
     val baseDirPath = environment.baseDir.toPath()
     val outputDirPath = environment.outputDir.toPath()
-    environment.baseDir.walk().forEach {
-        val path = it.toPath()
-        val relativePathInBaseDir = path.relativeTo(baseDirPath)
-        val absolutePathInOutputDir = outputDirPath.resolve(relativePathInBaseDir)
-        println("copyStaticAssets: ${if (it.isDirectory) "DIR " else "FILE"} $path -> $absolutePathInOutputDir")
-        val target = absolutePathInOutputDir.toFile()
-        if (it.isDirectory) {
-            target.mkdir()
-        } else {
-            it.copyTo(target)
+    environment.baseDir.walk().map {
+        async {
+            val path = it.toPath()
+            val relativePathInBaseDir = path.relativeTo(baseDirPath)
+            val absolutePathInOutputDir = outputDirPath.resolve(relativePathInBaseDir)
+            println("copyStaticAssets: ${if (it.isDirectory) "DIR " else "FILE"} $path -> $absolutePathInOutputDir")
+            val target = absolutePathInOutputDir.toFile()
+            if (it.isDirectory) {
+                target.mkdir()
+            } else {
+                it.copyTo(target)
+            }
         }
-    }
+    }.toList().awaitAll()
 }
