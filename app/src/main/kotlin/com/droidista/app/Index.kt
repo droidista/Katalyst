@@ -31,24 +31,13 @@ suspend fun buildIndexPage(environment: Environment) {
                                 text("me.sayHelloWorld()")
                             }
                         }
-                        kotlinCode(
-                            """
-        // A fun greeter function
-        fun greet() {
-            val value = "Hello, world" // This is a comment
-            println(value)
-        }
-        
-        /*
-        * This is a block comment
-        * This spans multiple lines
-        */
-        
-        @JvmName("Person")
-        data class Person(val name: String, val age: Int)
-        value class Type(val type: Int)
-    """.trimIndent()
-                        )
+                        kotlinCode("" +
+                                "// Display values with index\n" +
+                                "fun printItemsWithIndices() {\n" +
+                                "    values.forEachIndexed { index, item ->\n" +
+                                "        println(\"Index: \$index, value: \$item\")\n" +
+                                "    }\n" +
+                                "}")
                     }
                 }
                 footer {
