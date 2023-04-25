@@ -52,7 +52,8 @@ val baseCss = listOf(
         ),
         declarations = mapOf(
             "font-family" to "'JetBrains Mono', monospace",
-            "font-variant-ligatures" to "normal"
+            "font-variant-ligatures" to "normal",
+            "line-height" to "1.5em",
         ),
         depends = listOf("JetBrains Mono"),
     ),

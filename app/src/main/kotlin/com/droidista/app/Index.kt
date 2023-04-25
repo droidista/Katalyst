@@ -4,6 +4,7 @@ import com.droidista.app.common.buildHeadContent
 import com.droidista.app.common.buildNavigation
 import com.droidista.katalyst.dom.document
 import com.droidista.katalyst.environment.Environment
+import com.droidista.katalyst.highlighter.kotlin.dom.kotlinCode
 
 suspend fun buildIndexPage(environment: Environment) {
     val indexHtml = document(environment) {
@@ -30,21 +31,24 @@ suspend fun buildIndexPage(environment: Environment) {
                                 text("me.sayHelloWorld()")
                             }
                         }
-                        pre(className = "language-kotlin") {
-                            code(className = "language-kotlin") {
-                                span("fun", className = "token keyword")
-                                text(" ")
-                                span("greet", className = "token function")
-                                span("() {", className = "token punctuation")
-                                text("\n   ")
-                                span("println", className = "token function")
-                                span("(", className = "token punctuation")
-                                span("\"Hello, world\"", className = "token string")
-                                span(")", className = "token punctuation")
-                                text("\n")
-                                span("}", className = "token punctuation")
-                            }
-                        }
+                        kotlinCode(
+                            """
+        // A fun greeter function
+        fun greet() {
+            val value = "Hello, world" // This is a comment
+            println(value)
+        }
+        
+        /*
+        * This is a block comment
+        * This spans multiple lines
+        */
+        
+        @JvmName("Person")
+        data class Person(val name: String, val age: Int)
+        value class Type(val type: Int)
+    """.trimIndent()
+                        )
                     }
                 }
                 footer {

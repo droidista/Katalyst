@@ -36,9 +36,7 @@ fun HtmlContext.buildHeadContent(title: String, description: String, imagePath: 
         meta(name = "twitter:creator", content = "@droidista")
         meta(name = "twitter:site", content = "@droidista")
 
-        //link(rel = "stylesheet", href = "/styles/base.css")
         deferred(InlineStyleGenerator(css))
-        link(rel = "stylesheet", href = "/styles/prism/prismjs-night-owl.css")
 
         link(rel = "apple-touch-icon", sizes = "57x57", href = "/images/apple-icon-57x57.png")
         link(rel = "apple-touch-icon", sizes = "60x60", href = "/images/apple-icon-60x60.png")
