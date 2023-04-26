@@ -8,7 +8,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) {
         val node = Node(
             tagName = tag,
@@ -35,7 +35,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         tag: String,
         id: String? = null,
         className: String? = null,
-        customAttributes: Map<String, String?>?,
+        customAttributes: Map<String, String?>? = null,
         text: String,
     ) {
         val node = Node(
@@ -66,7 +66,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         tag: String,
         id: String? = null,
         className: String? = null,
-        customAttributes: Map<String, String?>?,
+        customAttributes: Map<String, String?>? = null,
     ) {
         val node = Node(
             tagName = tag,
@@ -139,70 +139,70 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("div", id, className, customAttributes, block)
 
     inline fun pre(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("pre", id, className, customAttributes, block)
 
     inline fun p(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("p", id, className, customAttributes, block)
 
     inline fun code(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("code", id, className, customAttributes, block)
 
     inline fun nav(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("nav", id, className, customAttributes, block)
 
     inline fun header(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("header", id, className, customAttributes, block)
 
     inline fun footer(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("footer", id, className, customAttributes, block)
 
     inline fun main(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("main", id, className, customAttributes, block)
 
     inline fun article(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("article", id, className,customAttributes, block)
 
     inline fun span(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("span", id, className, customAttributes, block)
 
     fun span(
@@ -216,28 +216,28 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("table", id, className, customAttributes, block)
 
     inline fun tr(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("tr", id, className,customAttributes, block)
 
     inline fun tbody(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("tbody", id, className, customAttributes, block)
 
     inline fun td(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("td", id, className, customAttributes, block)
 
     inline fun a(
@@ -245,7 +245,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         className: String? = null,
         href: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) {
         val node = Node(
             tagName = "a",
@@ -327,7 +327,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         src: String? = null,
         srcSet: String? = null,
         alt: String? = null,
-        customAttributes: Map<String, String?>?,
+        customAttributes: Map<String, String?>? = null,
     ) {
         singleNode(
             "img", id, className,
@@ -352,7 +352,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("picture", id, className, customAttributes, block)
 
     fun source(
@@ -362,7 +362,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         src: String? = null,
         srcSet: String? = null,
         alt: String? = null,
-        customAttributes: Map<String, String?>?,
+        customAttributes: Map<String, String?>? = null,
     ) {
         singleNode(
             "source", id, className,
@@ -390,21 +390,21 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("b", id, className, customAttributes, block)
 
     inline fun i(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("i", id, className, customAttributes, block)
 
     inline fun u(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
-        crossinline block: BodyContext.() -> Unit,
+        block: BodyContext.() -> Unit,
     ) = container("u", id, className, customAttributes, block)
 
     fun b(

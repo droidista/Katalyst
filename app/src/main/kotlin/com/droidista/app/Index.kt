@@ -26,18 +26,25 @@ suspend fun buildIndexPage(environment: Environment) {
                         }
                         span("Published 17 April 2023", className = "article-date")
                         p {
-                            text("This is a proof-of-concept of gRPC's efficiency over conventional REST APIs. ")
+                            text("This is a proof-of-concept of gPC's efficiency over conventional REST APIs. ")
                             code(className = "highlight") {
                                 text("me.sayHelloWorld()")
                             }
                         }
-                        kotlinCode("" +
-                                "// Display values with index\n" +
-                                "fun printItemsWithIndices() {\n" +
-                                "    values.forEachIndexed { index, item ->\n" +
-                                "        println(\"Index: \$index, value: \$item\")\n" +
-                                "    }\n" +
-                                "}")
+                        kotlinCode(
+                            """
+                                // This is a line comment
+                                @Deprecated(message = "Don't use this")
+                                data class Person(val name: String, val age: Int) {
+                                    /*
+                                    * This is a block comment
+                                    */ 
+                                    fun greet() {
+                                        println(String.format(Locale.US, "Hello, %s! You are %d years old.", name, age))
+                                    }
+                                }
+                            """.trimIndent()
+                        )
                     }
                 }
                 footer {

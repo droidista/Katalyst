@@ -67,7 +67,7 @@ class DocumentContext(val environment: Environment) {
 
 inline fun document(
     environment: Environment,
-    crossinline block: DocumentContext.() -> Unit,
+    block: DocumentContext.() -> Unit,
 ): DocumentContext {
     val context = DocumentContext(environment)
     block(context)

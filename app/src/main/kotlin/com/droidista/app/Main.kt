@@ -22,6 +22,10 @@ suspend fun main(args: Array<String>) = withContext(Dispatchers.Default) {
     val indexPageGenerationTask = async {
         buildIndexPage(env)
     }
+    val aboutPageGenerationTask = async {
+        buildAboutPage(env)
+    }
     copyTask.await()
     indexPageGenerationTask.await()
+    aboutPageGenerationTask.await()
 }
