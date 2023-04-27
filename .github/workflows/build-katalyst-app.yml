@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   # Build Job
-  build-katalyst-app:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
