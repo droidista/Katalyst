@@ -23,6 +23,7 @@ kotlin {
 application {
     mainClass.set("com.droidista.app.MainKt")
     applicationName = "katalyst-sitegen"
+    tasks.run.get().workingDir = rootProject.projectDir
 }
 
 dependencies {
