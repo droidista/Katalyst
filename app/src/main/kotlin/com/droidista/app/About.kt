@@ -1,12 +1,71 @@
 package com.droidista.app
 
+import com.droidista.app.common.buildFooter
 import com.droidista.app.common.buildHeadContent
 import com.droidista.app.common.buildNavigation
+import com.droidista.katalyst.dom.BodyContext
 import com.droidista.katalyst.dom.document
 import com.droidista.katalyst.environment.Environment
 import com.droidista.katalyst.responsiveimage.responsiveImage
 
+private data class ContactInfo(
+    val title: String,
+    val url: String,
+    val hyperlink: BodyContext.() -> Unit
+)
+
 suspend fun buildAboutPage(environment: Environment) {
+    val contact = listOf(
+        ContactInfo(
+            title = "Twitter",
+            url = "https://twitter.com/droidista",
+            hyperlink = {
+                text("@droidista")
+            }
+        ),
+        ContactInfo(
+            title = "Mastodon",
+            url = "https://mastodon.social/@anandbose",
+            hyperlink = {
+                text("@anandbose@mastodon.social")
+            }
+        ),
+        ContactInfo(
+            title = "Reddit",
+            url = "https://reddit.com/u/anand_bose",
+            hyperlink = {
+                text("u/anand_bose")
+            }
+        ),
+        ContactInfo(
+            title = "Github",
+            url = "https://github.com/droidista",
+            hyperlink = {
+                text("@droidista")
+            }
+        ),
+        ContactInfo(
+            title = "Instagram",
+            url = "https://instagram.com/anandbose16",
+            hyperlink = {
+                text("@anandbose16")
+            }
+        ),
+        ContactInfo(
+            title = "Email",
+            url = "mailto:anandbose16@gmail.com",
+            hyperlink = {
+                text("anandbose16@gmail.com")
+            }
+        ),
+        ContactInfo(
+            title = "GPG Key",
+            url = "/gpg-key.txt",
+            hyperlink = {
+                text("222CA765E222EEB0DE97D5F184D8981E1D251B65")
+            }
+        ),
+    )
     val aboutHtml = document(environment) {
         html {
             buildHeadContent(
@@ -45,8 +104,36 @@ suspend fun buildAboutPage(environment: Environment) {
                                 customAttributes = mapOf("target" to "_blank"),
                             )
                         }
+                        p {
+                            text("A few things I enjoy: ")
+                            ul {
+                                li("Discovering more Android stuffs (Jetpack Compose)")
+                                li("Writing and talking tech")
+                                li("Having fun times with family")
+                                li("Cycling")
+                            }
+                        }
+                        h3("Contact")
+                        table {
+                            tbody {
+                                contact.forEach {
+                                    tr {
+                                        td(it.title)
+                                        td {
+                                            a(
+                                                className = "value",
+                                                href = it.url,
+                                                customAttributes = mapOf("target" to "_blank"),
+                                                block = it.hyperlink,
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+                buildFooter()
             }
         }
     }

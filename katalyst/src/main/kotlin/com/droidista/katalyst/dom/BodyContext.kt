@@ -240,6 +240,13 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         block: BodyContext.() -> Unit,
     ) = container("td", id, className, customAttributes, block)
 
+    fun td(
+        text: String,
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("td", id, className, customAttributes, text)
+
     inline fun a(
         id: String? = null,
         className: String? = null,
@@ -427,4 +434,32 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
     ) = textContainer("u", id, className, customAttributes, text)
+
+    inline fun ul(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("ul", id, className, customAttributes, block)
+
+    inline fun ol(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("ol", id, className, customAttributes, block)
+
+    inline fun li(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("li", id, className, customAttributes, block)
+
+    fun li(
+        text: String,
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("li", id, className, customAttributes, text)
 }

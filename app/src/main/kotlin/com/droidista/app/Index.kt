@@ -1,5 +1,6 @@
 package com.droidista.app
 
+import com.droidista.app.common.buildFooter
 import com.droidista.app.common.buildHeadContent
 import com.droidista.app.common.buildNavigation
 import com.droidista.katalyst.dom.document
@@ -47,9 +48,7 @@ suspend fun buildIndexPage(environment: Environment) {
                         )
                     }
                 }
-                footer {
-                    span("&copy;2023 Anand Bose. All rights reserved.")
-                }
+                buildFooter()
             }
         }
     }
