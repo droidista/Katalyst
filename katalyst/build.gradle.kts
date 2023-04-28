@@ -1,6 +1,5 @@
 import org.intellij.markdown.html.URI
 import org.jetbrains.dokka.gradle.DokkaTask
-import java.net.URL
 
 plugins {
     kotlin("jvm")
