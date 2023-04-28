@@ -128,7 +128,7 @@ suspend fun resizeImage(
     val processBuilder = ProcessBuilder(
         "/bin/sh",
         "-c",
-        "magick convert '${inputFile.absolutePath}' -resize ${sw}x$sh ${targetFile.absolutePath}",
+        "convert '${inputFile.absolutePath}' -resize ${sw}x$sh ${targetFile.absolutePath}",
     )
     val process = processBuilder.start()
     try {
@@ -154,7 +154,7 @@ suspend fun findImageMagickBinaryPath(): String? = withContext(Dispatchers.IO) {
     val processBuilder = ProcessBuilder(
         "/bin/sh",
         "-c",
-        "which magick"
+        "which convert"
     )
     val process = processBuilder.start()
     var imageMagickBinaryPath: String? = null
