@@ -4,13 +4,13 @@ import com.droidista.katalyst.dom.BodyContext
 
 fun BodyContext.buildNavigation() {
     nav(className = "site-nav") {
-        a(className = "nav-menu-item", href = "/index.html", text = "Home")
+        a(className = "nav-menu-item", href = "./index.html", text = "Home")
         //text("\n")
         text(" ")
-        a(className = "nav-menu-item", href = "/archive.html", text = "Archive")
+        a(className = "nav-menu-item", href = "./archive.html", text = "Archive")
         //text("\n")
         text(" ")
-        a(className = "nav-menu-item", href = "/about.html", text = "About")
+        a(className = "nav-menu-item", href = "./about.html", text = "About")
         //text("\n")
         text(" ")
         a(
