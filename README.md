@@ -1,22 +1,9 @@
 # Katalyst Static Site Generator
 
-Katalyst is a simple and minimal static site generator implementation in Kotlin. This project is in pre-alpha state and no way ready for production. 
+Katalyst is a simple and minimal static site generator implemented in Kotlin. The goals of this project are:
 
-
-This project is organized as two modules:
-
-* katalyst - The library implementation of static site generator
-* app - A sample blog site implementation in Katalyst DSL, which generates HTML files on execution (currently nowhere near to a blog site!)
-
-## Roadmap
-
-✅ A minimal, type safe DSL for building and reusing DOM trees.
-
-
-✅ Concept of `Deferred` nodes, `DeferredGenerator` and analyzer that iterates over the entire DOM tree and replace deferred nodes with the newly generated tree.
-
-
-➡️ API documentation, maven artifact publishing, project template and website for beginners to get started.
-
-
-➡️ Pluggable adapters for covering common use cases like pagination, image optimization and further enhancements
+* Provide a declarative interface for building HTML pages with type-safety.
+* Build HTML components for reuse.
+* Declarativley declare CSS rules and establish dependency graph between CSS declarations.
+* Provide a resolver that statically analyzes HTML nodes and includes only the essential CSS blocks.
+* A plugin interface to extend Katalyst.

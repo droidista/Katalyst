@@ -1,5 +1,10 @@
+import org.intellij.markdown.html.URI
+import org.jetbrains.dokka.gradle.DokkaTask
+import java.net.URL
+
 plugins {
     kotlin("jvm")
+    id("org.jetbrains.dokka")
 }
 
 group = "com.droidista.katalyst"
@@ -22,4 +27,16 @@ kotlin {
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk9:1.6.4")
     testImplementation(kotlin("test"))
+}
+
+tasks.withType<DokkaTask>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            includes.from("Module.md")
+            sourceLink {
+                remoteUrl.set(URI("https://github.com/droidista/Katalyst/blob/main/katalyst").toURL())
+                localDirectory.set(projectDir)
+            }
+        }
+    }
 }
