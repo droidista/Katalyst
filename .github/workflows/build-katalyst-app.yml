@@ -33,9 +33,9 @@ jobs:
 
       - name: Setup ImageMagick
         run: |
-          tar -xvf ./.github/tools/ImageMagick-Linux-7.1.1-9-beta.tar.gz
-          export PATH=./ImageMagick/bin:$PATH
-          export LD_LIBRARY_PATH=./ImageMagick/lib:$LD_LIBRARY_PATH
+          tar -xvf ./.github/ImageMagick-Ubuntu-22.04.tar.gz
+          export PATH=./ImageMagick-Ubuntu-22.04/bin:$PATH
+          export LD_LIBRARY_PATH=./ImageMagick-Ubuntu-22.04/lib:$LD_LIBRARY_PATH
           magick identify -version
 
       - name: Setup Gradle
