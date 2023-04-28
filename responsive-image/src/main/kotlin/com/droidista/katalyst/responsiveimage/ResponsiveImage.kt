@@ -128,7 +128,7 @@ suspend fun resizeImage(
     val processBuilder = ProcessBuilder(
         "/bin/sh",
         "-c",
-        "convert '${inputFile.absolutePath}' -resize ${sw}x$sh ${targetFile.absolutePath}",
+        "convert '${inputFile.absolutePath}' -resize ${sw}x$sh -background none ${targetFile.absolutePath}",
     )
     val process = processBuilder.start()
     try {
