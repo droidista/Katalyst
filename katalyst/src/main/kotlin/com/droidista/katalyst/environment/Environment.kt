@@ -30,8 +30,7 @@ fun clean(environment: Environment) {
     println("clean: ${environment.outputDir.absolutePath}")
 }
 
-suspend fun copyStaticAssets(environment: Environment) = withContext(Dispatchers.IO) {
-    println("copyStaticAssets: baseDir = ${environment.baseDir.absolutePath}")
+suspend fun copyStaticAssets(environment: Environment, isVerbose: Boolean = false) = withContext(Dispatchers.IO) {
     val baseDirPath = environment.baseDir.toPath()
     val outputDirPath = environment.outputDir.toPath()
     environment.baseDir.walk().map {
@@ -39,7 +38,9 @@ suspend fun copyStaticAssets(environment: Environment) = withContext(Dispatchers
             val path = it.toPath()
             val relativePathInBaseDir = path.relativeTo(baseDirPath)
             val absolutePathInOutputDir = outputDirPath.resolve(relativePathInBaseDir)
-            println("copyStaticAssets: ${if (it.isDirectory) "DIR " else "FILE"} $path -> $absolutePathInOutputDir")
+            if (isVerbose) {
+                println("copyStaticAssets: ${if (it.isDirectory) "DIR " else "FILE"} $path -> $absolutePathInOutputDir")
+            }
             val target = absolutePathInOutputDir.toFile()
             if (it.isDirectory) {
                 target.mkdir()

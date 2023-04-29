@@ -6,11 +6,12 @@ import com.droidista.katalyst.highlighter.kotlin.tokenizer.*
 import com.droidista.katalyst.highlighter.kotlin.tokenizer.TokenCollector
 
 fun main(args: Array<String>) {
-    val kotlinCode = """
-        // A fun greeter function
+    val kotlinCode = """import java.util.*
+        import java.util.List
+        
         fun greet() {
             val value = "Hello, world" // This is a comment
-            println(value)
+            println(value.repeat(size * 3))
         }
         /*
         * This is a block comment

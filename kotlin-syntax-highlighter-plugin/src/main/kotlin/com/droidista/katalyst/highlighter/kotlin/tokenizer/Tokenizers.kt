@@ -1,12 +1,14 @@
 package com.droidista.katalyst.highlighter.kotlin.tokenizer
 
-val Tokenizers = listOf(
-    SingleLineCommentTokenizer(),
-    BlockCommentTokenizer(),
-    StringLiteralTokenizer(),
-    SymbolTokenizer(),
-    PunctuationTokenizer(),
-)
+val Tokenizers: List<Tokenizer>
+    get() = listOf(
+        SingleLineCommentTokenizer(),
+        BlockCommentTokenizer(),
+        StringLiteralTokenizer(),
+        SymbolTokenizer(),
+        PunctuationTokenizer(),
+    )
+
 open class GenericTokenizer(
     private val allowedChars: List<Char>,
     private val type: Int,
@@ -226,7 +228,7 @@ class BlockCommentTokenizer : Tokenizer {
     private var startIndex = 0
     private var endIndex = 0
     override fun consume(char: Char, index: Int): ConsumptionState {
-        return when (state) {
+        return when (val initialState = state) {
             STATE_EXPECTING_START_SLASH -> {
                 if (char == '/') {
                     state = STATE_EXPECTING_START_ASTERISK
@@ -286,7 +288,7 @@ class BlockCommentTokenizer : Tokenizer {
     private fun clearState() {
         buffer = null
         events = mutableListOf()
-        state = STATE_EXPECTING_START_ASTERISK
+        state = STATE_EXPECTING_START_SLASH
         startIndex = 0
         endIndex = 0
     }

@@ -98,6 +98,17 @@ class HeadContext(val node: Node, environment: Environment) : BaseContext(enviro
         elements.add(node)
     }
 
+    fun script(javascript: String) {
+        val node = Node(
+            tagName = "script",
+            parent = node,
+            children = mutableListOf(
+                Text(text = javascript)
+            ),
+        )
+        elements.add(node)
+    }
+
     fun deferred(generator: DeferredGenerator) {
         elements.add(Deferred(generator))
     }

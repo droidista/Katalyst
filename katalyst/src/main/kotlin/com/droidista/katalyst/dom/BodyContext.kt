@@ -1,6 +1,7 @@
 package com.droidista.katalyst.dom
 
 import com.droidista.katalyst.environment.Environment
+import com.droidista.katalyst.generator.DeferredGenerator
 
 class BodyContext(val node: Node, environment: Environment) : BaseContext(environment) {
     inline fun container(
@@ -163,6 +164,13 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         block: BodyContext.() -> Unit,
     ) = container("code", id, className, customAttributes, block)
 
+    fun code(
+        text: String,
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("code", id, className, customAttributes, text)
+
     inline fun nav(
         id: String? = null,
         className: String? = null,
@@ -196,7 +204,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
         block: BodyContext.() -> Unit,
-    ) = container("article", id, className,customAttributes, block)
+    ) = container("article", id, className, customAttributes, block)
 
     inline fun span(
         id: String? = null,
@@ -224,7 +232,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
         block: BodyContext.() -> Unit,
-    ) = container("tr", id, className,customAttributes, block)
+    ) = container("tr", id, className, customAttributes, block)
 
     inline fun tbody(
         id: String? = null,
@@ -462,4 +470,51 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
     ) = textContainer("li", id, className, customAttributes, text)
+
+    fun deferred(generator: DeferredGenerator) {
+        elements.add(Deferred(generator))
+    }
+
+    fun iframe(
+        id: String? = null,
+        className: String? = null,
+        src: String? = null,
+        customAttributes: Map<String, String?>? = null,
+    ) {
+        elements.add(
+            Node(
+                tagName = "iframe",
+                attributes = buildMap {
+                    if (id != null) {
+                        put("id", id)
+                    }
+                    if (className != null) {
+                        put("class", className)
+                    }
+                    if (src != null) {
+                        put("src", src)
+                    }
+                    if (!customAttributes.isNullOrEmpty()) {
+                        putAll(customAttributes)
+                    }
+                },
+                parent = node,
+                children = mutableListOf(
+                    Text("")
+                )
+            )
+        )
+    }
+    inline fun blockquote(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("blockquote", id, className, customAttributes, block)
+    fun blockquote(
+        text: String,
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+    ) = textContainer("blockquote", id, className, customAttributes, text)
 }

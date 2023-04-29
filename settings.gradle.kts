@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 include("katalyst")
-include("app")
 include("kotlin-syntax-highlighter-plugin")
 include("responsive-image")
+include("site")

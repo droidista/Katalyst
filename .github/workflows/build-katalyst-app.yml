@@ -44,13 +44,13 @@ jobs:
           export PATH=./ImageMagick-Ubuntu-22.04/bin:$PATH
           export LD_LIBRARY_PATH=./ImageMagick-Ubuntu-22.04/lib:$LD_LIBRARY_PATH
           magick identify -version
-          ./gradlew run
+          ./gradlew :site:run
 
       - name: Generate Documentation
         run: |
           ./gradlew :katalyst:dokkaHtml
           mkdir ./dist/doc
-          cp -r ./katalyst/build/dokka/html/* ./dist/doc
+          cp -r ./katalyst/build/dokka/html/* ./site/dist/doc
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -58,7 +58,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: './dist/'
+          path: './site/dist/'
   
   deploy:
     environment:
