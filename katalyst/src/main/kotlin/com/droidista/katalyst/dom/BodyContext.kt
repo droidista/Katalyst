@@ -478,6 +478,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
     fun iframe(
         id: String? = null,
         className: String? = null,
+        title: String? = null,
         src: String? = null,
         customAttributes: Map<String, String?>? = null,
     ) {
@@ -490,6 +491,9 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
                     }
                     if (className != null) {
                         put("class", className)
+                    }
+                    if (title != null) {
+                        put("title", title)
                     }
                     if (src != null) {
                         put("src", src)

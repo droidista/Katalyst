@@ -110,17 +110,21 @@ suspend fun buildIndexPage(environment: Environment) {
             }
             kotlinCode(codeLines.subList(54, 73).joinToString(separator = "\n"))
             p {
-                text("You can see the generated page ")
-                a(href = "./deferred-generator-example.html", text = "here")
-                text(":")
+                text("You can see the generated page here:")
             }
             iframe(
+                title = "Page rendered with deferred generators",
                 src = "./deferred-generator-example.html",
                 customAttributes = buildMap {
                     put("width", "100%")
                     put("height", "300")
                     put("style", "background: #ffffff;")
                 }
+            )
+            a(
+                href = "./deferred-generator-example.html",
+                text = "Open in new tab",
+                customAttributes = mapOf("target" to "_blank"),
             )
             blockquote {
                 text("Fun fact: The code of ")
