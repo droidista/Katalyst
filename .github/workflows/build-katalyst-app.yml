@@ -49,7 +49,7 @@ jobs:
       - name: Generate Documentation
         run: |
           ./gradlew :katalyst:dokkaHtml
-          mkdir ./dist/doc
+          mkdir ./site/dist/doc
           cp -r ./katalyst/build/dokka/html/* ./site/dist/doc
 
       - name: Setup Pages
