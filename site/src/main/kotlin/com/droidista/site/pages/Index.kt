@@ -111,11 +111,11 @@ suspend fun buildIndexPage(environment: Environment) {
             kotlinCode(codeLines.subList(54, 73).joinToString(separator = "\n"))
             p {
                 text("You can see the generated page ")
-                a(href = "/deferred-generator-example.html", text = "here")
+                a(href = "./deferred-generator-example.html", text = "here")
                 text(":")
             }
             iframe(
-                src = "/deferred-generator-example.html",
+                src = "./deferred-generator-example.html",
                 customAttributes = buildMap {
                     put("width", "100%")
                     put("height", "300")
