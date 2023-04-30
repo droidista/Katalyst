@@ -7,6 +7,7 @@ Katalyst is a Kotlin/JVM library for developing static websites. Currently, Kata
 from analyzing nodes derived during phase `T - 1`.
 3. A CSS packer which traverses through the HTML element tree and includes only the relevant CSS rules in the page.
 
+[Guide](https://droidista.github.io/Katalyst) [API Reference](https://droidista.github.io/Katalyst/doc)
 ## TODO
 
 1. A beginner friendly site that demonstrates the generation of static sites with Katalyst

@@ -23,26 +23,21 @@ concurrency:
 jobs:
   # Build Job
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-        with:
-          lfs: true
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 11
-
-      - name: Setup ImageMagick
-        run: tar -xvf ./.github/ImageMagick-Ubuntu-22.04.tar.gz
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
       - name: Run Katalyst SSG
         run: |
-          export PATH=./ImageMagick-Ubuntu-22.04/bin:$PATH
-          export LD_LIBRARY_PATH=./ImageMagick-Ubuntu-22.04/lib:$LD_LIBRARY_PATH
+          export PATH=./.github/prebuilt/ImageMagick-Ubuntu-22.04/bin:$PATH
+          export LD_LIBRARY_PATH=./.github/prebuilt/ImageMagick-Ubuntu-22.04/lib:$LD_LIBRARY_PATH
           magick identify -version
           ./gradlew :site:run
 
@@ -64,7 +59,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
     steps:
       - name: Deploy to GitHub Pages
