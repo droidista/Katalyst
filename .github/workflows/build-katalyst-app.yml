@@ -36,6 +36,7 @@ jobs:
 
       - name: Run Katalyst SSG
         run: |
+          chmod -R +x ./.github/prebuilt/ImageMagick-Ubuntu-22.04/bin/
           export PATH=./.github/prebuilt/ImageMagick-Ubuntu-22.04/bin:$PATH
           export LD_LIBRARY_PATH=./.github/prebuilt/ImageMagick-Ubuntu-22.04/lib:$LD_LIBRARY_PATH
           magick identify -version
