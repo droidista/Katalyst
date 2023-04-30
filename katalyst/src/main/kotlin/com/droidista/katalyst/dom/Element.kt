@@ -4,18 +4,20 @@ import com.droidista.katalyst.environment.Environment
 import com.droidista.katalyst.generator.DeferredGenerator
 import com.droidista.katalyst.internal.ElementTreeTraversalState
 import java.util.*
+import kotlin.NoSuchElementException
 
 sealed interface Element {
     fun render(): String
 }
+
 data class Node(
     var tagName: String,
     var attributes: Map<String, String?>? = null,
-    var children: MutableList<Element>? =  null,
+    var children: MutableList<Element>? = null,
     var parent: Node? = null,
 ) : Element {
 
-    val id : String?
+    val id: String?
         get() = attributes?.get("id")
 
     val classNames: List<String>?
@@ -55,52 +57,75 @@ data class Node(
 data class Text(
     var text: String,
     var parent: Node? = null,
-): Element {
+) : Element {
     override fun render(): String {
         return text
     }
 }
 
-class Deferred(val generator: DeferredGenerator) : Element {
+class Deferred(val generator: DeferredGenerator, val priority: Int = 0) : Element {
     override fun render(): String = ""
 
 }
 
-fun resolveDeferredNodes(root: Node, environment: Environment): Int {
-    val stack = Stack<ElementTreeTraversalState>()
-    var elementList = mutableListOf<Element>(root)
-    var index = 0
-    var renderCount = 0
-    while (true) {
-        when (val element = elementList.getOrNull(index)) {
-            is Node -> {
-                val children = element.children
-                if (!children.isNullOrEmpty()) {
-                    stack.push(ElementTreeTraversalState(elementList, index))
-                    elementList = children
-                    index = 0
-                    continue
+data class DeferredElementResolveResult(val traversalCount: Int, val deferredElementCount: Int)
+
+fun resolveDeferredNodes(root: Node, environment: Environment): DeferredElementResolveResult {
+    var traversalCount = 0
+    var deferredElementCount = 0
+    outer@ while (true) {
+        traversalCount++
+        val elementListStack = mutableListOf<MutableList<Element>>()
+        val indexStack = mutableListOf<Int>()
+        var elementList = mutableListOf<Element>(root)
+        var index = 0
+        var deferredElement: Deferred? = null
+        var deferredElementIndex: Int = -1
+        var deferredElementParentList: MutableList<Element>? = null
+        inner@ while (true) {
+            when (val element = elementList.getOrNull(index)) {
+                is Deferred -> {
+                    if (element.priority > (deferredElement?.priority ?: Int.MIN_VALUE)) {
+                        deferredElement = element
+                        deferredElementIndex = index
+                        deferredElementParentList = elementList
+                    }
+                }
+
+                is Node -> {
+                    val children = element.children
+                    if (!children.isNullOrEmpty()) {
+                        elementListStack.add(elementList)
+                        indexStack.add(index)
+                        elementList = children
+                        index = 0
+                        continue@inner
+                    }
+                }
+
+                is Text -> {}
+                null -> {
+                    try {
+                        elementList = elementListStack.removeLast()
+                        index = indexStack.removeLast()
+                    } catch (e: NoSuchElementException) {
+                        break@inner
+                    }
                 }
             }
-            is Deferred -> {
-                val generated = element.generator.generate(root, environment)
-                elementList[index] = generated
-                renderCount++
-            }
-            else -> {}
+            index++
         }
-        index++
-        if (index !in elementList.indices) {
-            try {
-                val stackEntry = stack.pop()
-                if ((stackEntry.index + 1) in stackEntry.elementList.indices) {
-                    elementList = stackEntry.elementList
-                    index = stackEntry.index + 1
-                }
-            } catch (e: EmptyStackException) {
-                break
-            }
+        if (
+            deferredElement != null &&
+            deferredElementParentList != null &&
+            deferredElementIndex >= 0
+        ) {
+            val element = deferredElement.generator.generate(root, environment)
+            deferredElementParentList[deferredElementIndex] = element
+            deferredElementCount++
+        } else {
+            break@outer
         }
     }
-    return renderCount
+    return DeferredElementResolveResult(traversalCount, deferredElementCount)
 }

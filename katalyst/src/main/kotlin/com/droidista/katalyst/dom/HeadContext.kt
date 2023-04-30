@@ -109,7 +109,7 @@ class HeadContext(val node: Node, environment: Environment) : BaseContext(enviro
         elements.add(node)
     }
 
-    fun deferred(generator: DeferredGenerator) {
-        elements.add(Deferred(generator))
+    fun deferred(generator: DeferredGenerator, priority: Int = 0) {
+        elements.add(Deferred(generator, priority))
     }
 }

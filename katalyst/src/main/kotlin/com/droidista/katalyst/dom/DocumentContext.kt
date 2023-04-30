@@ -35,15 +35,8 @@ class DocumentContext(val environment: Environment) {
     }
 
     suspend fun recursivelyResolveDeferredNodes() = withContext(Dispatchers.Default) {
-        var deferredNodeRenderPhase = 0
-        while (true) {
-            val renderCount = resolveDeferredNodes(rootNode!!, environment)
-            println("recursivelyResolveDeferredNodes: Phase $deferredNodeRenderPhase rendered $renderCount node")
-            if (renderCount == 0) {
-                break
-            }
-            deferredNodeRenderPhase++
-        }
+        val result = resolveDeferredNodes(rootNode!!, environment)
+        println("recursivelyResolveDeferredNodes: traversalCount = ${result.traversalCount} deferredElementCount = ${result.deferredElementCount}")
     }
 
     suspend fun writeToFile(relativePath: String, isOverwriteAllowed: Boolean = true) = withContext(Dispatchers.IO) {

@@ -471,8 +471,8 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         customAttributes: Map<String, String?>? = null,
     ) = textContainer("li", id, className, customAttributes, text)
 
-    fun deferred(generator: DeferredGenerator) {
-        elements.add(Deferred(generator))
+    fun deferred(generator: DeferredGenerator, priority: Int = 0) {
+        elements.add(Deferred(generator, priority))
     }
 
     fun iframe(
