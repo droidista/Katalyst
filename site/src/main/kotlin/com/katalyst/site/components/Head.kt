@@ -14,6 +14,9 @@ fun HtmlContext.includeSiteHead(title: String, description: String, imagePath: S
             content = description
         )
 
+        // Google site verification
+        meta(name = "google-site-verification", content = "jmtVjY3zdU-jXicYnnvtgjWl1cJafFfMYymZIAQheqA")
+
         // Open graph: Facebook
         meta(property = "og:title", content = title)
         meta(
