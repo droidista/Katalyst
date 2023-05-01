@@ -13,7 +13,7 @@ inline fun DocumentContext.pageTemplate(
         includeSiteHead(
             title = "Katalyst Static Site Generator",
             description = "Katalyst is a Kotlin/JVM library for developing static websites.",
-            imagePath = "/images/favicon.jpg"
+            imagePath = "./twitter-card.png"
         )
         body {
             includeSiteHeader()

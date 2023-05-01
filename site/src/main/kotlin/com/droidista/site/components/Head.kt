@@ -24,7 +24,7 @@ fun HtmlContext.includeSiteHead(title: String, description: String, imagePath: S
         meta(property = "og:image:alt", content = title)
 
         // Open graph: Twitter card
-        meta(name = "twitter:card", content = "summary")
+        meta(name = "twitter:card", content = "summary_large_image")
         meta(name = "twitter:title", content = title)
         meta(
             name = "twitter:description",
