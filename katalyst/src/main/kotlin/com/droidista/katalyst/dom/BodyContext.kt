@@ -129,6 +129,48 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
         customAttributes: Map<String, String?>? = null,
     ) = textContainer("h6", id, className, customAttributes, text)
 
+    inline fun h1(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("h1", id, className, customAttributes, block)
+
+    inline fun h2(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("h2", id, className, customAttributes, block)
+
+    inline fun h3(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("h3", id, className, customAttributes, block)
+
+    inline fun h4(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("h4", id, className, customAttributes, block)
+
+    inline fun h5(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("h5", id, className, customAttributes, block)
+
+    inline fun h6(
+        id: String? = null,
+        className: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) = container("h6", id, className, customAttributes, block)
+
     fun p(
         text: String,
         id: String? = null,

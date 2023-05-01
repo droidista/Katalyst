@@ -12,9 +12,9 @@ suspend fun buildIndexPage(environment: Environment) {
             h2("Katalyst Static Site Generator")
             p("Katalyst is a Kotlin/JVM library for developing static websites. Currently, Katalyst implements the following concepts:")
             ol {
-                li("A type-safe, extendable Kotlin DSL of basic HTML elements.")
+                li("Type-safe, extendable Kotlin DSL of basic HTML elements.")
                 li {
-                    text("A multi-phased HTML tree builder that splits the build pipeline to several phases, ")
+                    text("Multi-phased HTML tree builder that splits the build pipeline to several phases, ")
                     text("so that the generation of a nested tree can be postponed to the next phase ")
                     code("T + 1", className = "highlight")
                     text(" without blocking the generation of the parent tree on the current phase ")
@@ -22,15 +22,18 @@ suspend fun buildIndexPage(environment: Environment) {
                     text(". This is quite useful if the ")
                     text("nested tree generation depends on the other branches of the parent tree.")
                 }
-                li("A CSS compiler utilising the multi-phased HTML builder " +
-                        "by analyzing the HTML tree and compiles only the " +
-                        "minimal set of CSS rules required to include in the page.")
+                li(
+                    "CSS compiler utilising the multi-phased HTML builder " +
+                            "by analyzing the HTML tree and compiles only the " +
+                            "minimal set of CSS rules required to include in the page."
+                )
             }
             h2("Type-safe, extendable Kotlin DSL")
             p {
                 text("You can develop HTML pages with the idiomatic Kotlin code like this:")
             }
-            kotlinCode("""
+            kotlinCode(
+                """
                     suspend fun main() {
                         /* Get the current working directory
                          * The :run gradle command will set the working directory to
@@ -58,7 +61,8 @@ suspend fun buildIndexPage(environment: Environment) {
                         // Render to index.html in dist directory
                         indexPage.writeToFile("/index.html")
                     }
-                """.trimIndent())
+                """.trimIndent()
+            )
             p {
                 text("Katalyst internally translates the DSL function calls to tree structure of ")
                 code("Element", className = "highlight")
@@ -134,7 +138,10 @@ suspend fun buildIndexPage(environment: Environment) {
                 text("Fun fact: The code of ")
                 code("HtmlTreeStructureGenerator", className = "highlight")
                 text(" shown here is copied from the actual source code ")
-                a(href = "https://github.com/droidista/Katalyst/blob/main/site/src/main/kotlin/com/droidista/site/pages/Example.kt", text="(Example.kt)")
+                a(
+                    href = "https://github.com/droidista/Katalyst/blob/main/site/src/main/kotlin/com/droidista/site/pages/Example.kt",
+                    text = "(Example.kt)"
+                )
                 text(" and embedded while building this page! ")
                 text("Also, the page embedded here is the actual page rendered by Katalyst while building this website!")
             }
@@ -157,7 +164,8 @@ suspend fun buildIndexPage(environment: Environment) {
                 code("InlineStyleGenerator", className = "highlight")
                 text(".")
             }
-            kotlinCode("""
+            kotlinCode(
+                """
                 val myCssRules = listOf(
                     CssDefinition(
                         matchers = listOf(
@@ -195,7 +203,8 @@ suspend fun buildIndexPage(environment: Environment) {
                         dependencyTag = "JetBrains Mono",
                     ),
                 )
-            """.trimIndent())
+            """.trimIndent()
+            )
             p {
                 text("The ")
                 code("InlineStyleGenerator", className = "highlight")

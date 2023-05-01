@@ -4,7 +4,7 @@ import com.droidista.katalyst.dom.BodyContext
 import com.droidista.katalyst.dom.DocumentContext
 import com.droidista.site.components.includeSiteFooter
 import com.droidista.site.components.includeSiteHead
-import com.droidista.site.components.includeSiteNavigation
+import com.droidista.site.components.includeSiteHeader
 
 inline fun DocumentContext.pageTemplate(
     crossinline contentBlock: BodyContext.() -> Unit
@@ -16,10 +16,7 @@ inline fun DocumentContext.pageTemplate(
             imagePath = "/images/favicon.jpg"
         )
         body {
-            header {
-                h1("Katalyst")
-                includeSiteNavigation()
-            }
+            includeSiteHeader()
             main {
                 contentBlock()
             }
