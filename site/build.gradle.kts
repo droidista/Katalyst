@@ -3,7 +3,7 @@ plugins {
     application
 }
 
-group = "com.droidista.app"
+group = "com.katalyst.app"
 version = "1.0.0"
 
 tasks.test {
@@ -21,7 +21,7 @@ kotlin {
 }
 
 application {
-    mainClass.set("com.droidista.site.MainKt")
+    mainClass.set("com.katalyst.site.MainKt")
     applicationName = "katalyst-site"
 }
 

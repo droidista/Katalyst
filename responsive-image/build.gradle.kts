@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "com.droidista.katalyst.responsiveimage"
+group = "com.katalyst.responsiveimage"
 version = "1.0.0"
 
 java {

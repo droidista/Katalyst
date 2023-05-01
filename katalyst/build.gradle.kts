@@ -6,7 +6,7 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-group = "com.droidista.katalyst"
+group = "com.katalyst"
 version = "1.0.0"
 
 tasks.test {

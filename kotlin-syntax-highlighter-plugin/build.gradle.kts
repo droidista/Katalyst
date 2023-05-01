@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "com.droidista.katalyst.highlighter.kotlin"
+group = "com.katalyst.highlighter.kotlin"
 version = "1.0.0"
 
 java {
