@@ -44,6 +44,7 @@ jobs:
           ./gradlew :site:run :katalyst:dokkaHtml :katalyst:publish
           mkdir ./site/dist/doc
           cp -r ./katalyst/build/dokka/html/* ./site/dist/doc
+          cp -r ./katalyst/build/repos/maven/ ./site/dist
         env:
           USERNAME: droidista
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

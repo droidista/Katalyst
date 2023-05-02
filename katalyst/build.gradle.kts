@@ -40,6 +40,10 @@ publishing {
                 password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
             }
         }
+        maven {
+            name = "LocalPackages"
+            url = uri(layout.buildDirectory.dir("repos/maven"))
+        }
     }
     publications {
         register<MavenPublication>("gpr") {
