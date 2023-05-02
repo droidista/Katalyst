@@ -35,14 +35,9 @@ publishing {
             name = "GithubPackages"
             url = uri("https://maven.pkg.github.com/droidista/Katalyst")
             credentials {
-                username = project.findProperty("gpr.user") as? String ?: System.getenv("USERNAME") ?: "droidista"
-                password = project.findProperty("gpr.key") as? String ?: System.getenv("TOKEN") ?: System.getenv("GITHUB_TOKEN")
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
-        }
-    }
-    publications {
-        register<MavenPublication>("gpr") {
-            from(components["java"])
         }
     }
 }
