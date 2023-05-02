@@ -12,6 +12,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  packages: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete
@@ -34,17 +35,13 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2.4.2
 
-      - name: Run Katalyst SSG
+      - name: Run Katalyst SSG, generate documentation, publish maven artifact
         run: |
           chmod -R +x ./.github/prebuilt/ImageMagick-Ubuntu-22.04/bin/
           export PATH=./.github/prebuilt/ImageMagick-Ubuntu-22.04/bin:$PATH
           export LD_LIBRARY_PATH=./.github/prebuilt/ImageMagick-Ubuntu-22.04/lib:$LD_LIBRARY_PATH
           magick identify -version
-          ./gradlew :site:run
-
-      - name: Generate Documentation
-        run: |
-          ./gradlew :katalyst:dokkaHtml
+          ./gradlew :site:run :katalyst:dokkaHtml :katalyst:publish
           mkdir ./site/dist/doc
           cp -r ./katalyst/build/dokka/html/* ./site/dist/doc
 

@@ -4,10 +4,11 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     kotlin("jvm")
     id("org.jetbrains.dokka")
+    `maven-publish`
 }
 
 group = "com.katalyst"
-version = "1.0.0"
+version = "1.0.0-SNAPSHOT"
 
 tasks.test {
     useJUnitPlatform()
@@ -26,6 +27,24 @@ kotlin {
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk9:1.6.4")
     testImplementation(kotlin("test"))
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GithubPackages"
+            url = uri("https://maven.pkg.github.com/droidista/Katalyst")
+            credentials {
+                username = project.findProperty("gpr.user") as? String ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as? String ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            from(components["java"])
+        }
+    }
 }
 
 tasks.withType<DokkaTask>().configureEach {
