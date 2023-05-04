@@ -2,9 +2,9 @@ package com.katalyst.highlighter.kotlin.tokenizer
 
 val Tokenizers: List<Tokenizer>
     get() = listOf(
+        StringLiteralTokenizer(),
         SingleLineCommentTokenizer(),
         BlockCommentTokenizer(),
-        StringLiteralTokenizer(),
         SymbolTokenizer(),
         PunctuationTokenizer(),
     )

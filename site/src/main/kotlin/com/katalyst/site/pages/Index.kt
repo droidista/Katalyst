@@ -95,7 +95,7 @@ suspend fun buildIndexPage(environment: Environment) {
                 code("Element", className = "highlight")
                 text(". ")
                 text("The deferred element will be replaced with the generated element by the ")
-                code("DocumentContext.recursivelyResolveDeferredNodes", className = "highlight")
+                code("recursivelyResolveDeferredNodes", className = "highlight")
                 text(" method.")
             }
 
@@ -226,24 +226,55 @@ suspend fun buildIndexPage(environment: Environment) {
                 code("style", className = "highlight")
                 text(" element.")
             }
-            h2("Motivation")
+            h2("Get started with Katalyst")
             p {
-                text("There are a gazillion of static site generators available on the web, but I had a mixed feeling of ")
-                text("their approach towards the concept of static site generation. For me, SSG should be simple HTML pages styled ")
-                text("with CSS with bare minimal use of Javascript.")
+                text("You can start your static site right now with the pre-release builds of Katalyst in Github ")
+                text("Packages Maven repository or the public Maven repository.")
             }
+            h3("Set up Github Packages Maven Repository")
             p {
-                text("The following things I had in my mind when I developed Katalyst")
-                ul {
-                    li("A type safe, context aware DSL for HTML")
-                    li("Extensibility and reuse")
-                    li {
-                        text("Minimise Javascript by maximum utilization of server side rendering. The ")
-                        code("kotlin-syntax-highligher-plugin", className = "highlight")
-                        text(" in this project is a minimal replacement of prism-js, which does syntax ")
-                        text("highlighting on the browser side.")
+                a(
+                    href = "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry",
+                    text = "Github Packages Maven Repository",
+                    customAttributes = mapOf("target" to "_blank")
+                )
+                text(" requires authentication using your ")
+                text("Github personal access token with at least ")
+                code("read:packages", className = "highlight")
+                text(" scope to install Katalyst packages.")
+                kotlinCode("""
+                    repositories {
+                        maven {
+                            url = uri("https://maven.pkg.github.com/droidista/katalyst")
+                            credentials {
+                                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+                            }
+                        }
                     }
-                }
+                    dependencies {
+                        implementation("com.katalyst:katalyst:1.0.0-SNAPSHOT")
+                        implementation("com.katalyst:kotlin-syntax-highlighter-plugin:1.0.0-SNAPSHOT")
+                        implementation("com.katalyst:responsive-image:1.0.0-SNAPSHOT")
+                    }
+                """.trimIndent())
+            }
+            h3("Set up Katalyst Public Maven Repository")
+            p {
+                text("The access to the public Maven repository is fairly easier and does not require authentication. ")
+                text("It is hosted along with the Github hosted website of Katalyst. ")
+                kotlinCode("""
+                    repositories {
+                        maven {
+                            url = uri("https://droidista.github.io/Katalyst/maven")
+                        }
+                    }
+                    dependencies {
+                        implementation("com.katalyst:katalyst:1.0.0-SNAPSHOT")
+                        implementation("com.katalyst:kotlin-syntax-highlighter-plugin:1.0.0-SNAPSHOT")
+                        implementation("com.katalyst:responsive-image:1.0.0-SNAPSHOT")
+                    }
+                """.trimIndent())
             }
             blockquote {
                 text("Feel free to checkout the project source code in ")
