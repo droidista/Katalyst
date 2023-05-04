@@ -3,7 +3,7 @@ plugins {
     `maven-publish`
 }
 
-group = "com.katalyst.highlighter.kotlin"
+group = "com.katalyst"
 version = "1.0.0-SNAPSHOT"
 
 java {
