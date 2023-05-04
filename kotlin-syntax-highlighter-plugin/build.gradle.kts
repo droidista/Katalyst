@@ -1,9 +1,10 @@
 plugins {
     kotlin("jvm")
+    `maven-publish`
 }
 
 group = "com.katalyst.highlighter.kotlin"
-version = "1.0.0"
+version = "1.0.0-SNAPSHOT"
 
 java {
     toolchain {
@@ -23,4 +24,26 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/droidista/katalyst")
+            credentials {
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+        maven {
+            name = "LocalPackages"
+            url = uri(layout.buildDirectory.dir("repos/maven"))
+        }
+    }
+    publications {
+        register<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
 }
