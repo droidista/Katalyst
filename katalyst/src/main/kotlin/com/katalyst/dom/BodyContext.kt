@@ -551,16 +551,82 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
             )
         )
     }
+
     inline fun blockquote(
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
         block: BodyContext.() -> Unit,
     ) = container("blockquote", id, className, customAttributes, block)
+
     fun blockquote(
         text: String,
         id: String? = null,
         className: String? = null,
         customAttributes: Map<String, String?>? = null,
     ) = textContainer("blockquote", id, className, customAttributes, text)
+
+    inline fun time(
+        id: String? = null,
+        className: String? = null,
+        dateTime: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        block: BodyContext.() -> Unit,
+    ) {
+        val node = Node(
+            tagName = "time",
+            attributes = buildMap {
+                if (id != null) {
+                    put("id", dateTime)
+                }
+                if (className != null) {
+                    put("class", dateTime)
+                }
+                if (dateTime != null) {
+                    put("datetime", dateTime)
+                }
+                if (!customAttributes.isNullOrEmpty()) {
+                    putAll(customAttributes)
+                }
+            },
+            parent = node,
+        )
+        val context = BodyContext(node, environment)
+        block(context)
+        node.children = context.elements
+        elements.add(node)
+    }
+
+    fun time(
+        id: String? = null,
+        className: String? = null,
+        dateTime: String? = null,
+        customAttributes: Map<String, String?>? = null,
+        text: String? = null,
+    ) {
+        val node = Node(
+            tagName = "time",
+            attributes = buildMap {
+                if (id != null) {
+                    put("id", dateTime)
+                }
+                if (className != null) {
+                    put("class", dateTime)
+                }
+                if (dateTime != null) {
+                    put("datetime", dateTime)
+                }
+                if (!customAttributes.isNullOrEmpty()) {
+                    putAll(customAttributes)
+                }
+            },
+            parent = node,
+        )
+        val child = Text(
+            text = text ?: "",
+            parent = node,
+        )
+        node.children = mutableListOf(child)
+        elements.add(node)
+    }
 }
