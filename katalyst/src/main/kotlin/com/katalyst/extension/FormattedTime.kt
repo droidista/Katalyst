@@ -33,3 +33,25 @@ fun BodyContext.formattedTime(
         text = humanReadableTime,
     )
 }
+
+fun BodyContext.formattedTime(
+    id: String? = null,
+    className: String? = null,
+    epochMillis: Long,
+    localizedPattern: String,
+    timeZoneId: ZoneId = ZoneId.systemDefault(),
+    customAttributes: Map<String, String?>? = null,
+) {
+    val zonedTime = Instant.ofEpochMilli(epochMillis)
+        .atZone(timeZoneId)
+    val isoFormattedTime = zonedTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+    val humanReadableTimeFormatter = DateTimeFormatter.ofLocalizedPattern(localizedPattern)
+    val humanReadableTime = zonedTime.format(humanReadableTimeFormatter)
+    time(
+        id = id,
+        className = className,
+        dateTime = isoFormattedTime,
+        customAttributes = customAttributes,
+        text = humanReadableTime,
+    )
+}
