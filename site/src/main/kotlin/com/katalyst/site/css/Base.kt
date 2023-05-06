@@ -125,6 +125,7 @@ val baseCss = listOf(
         ),
         declarations = mapOf(
             "color" to "var(--secondary-text-color)",
+            "font-size" to "0.8em",
         ),
         depends = listOf(":root"),
     ),

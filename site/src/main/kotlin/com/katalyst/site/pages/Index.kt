@@ -2,14 +2,25 @@ package com.katalyst.site.pages
 
 import com.katalyst.dom.document
 import com.katalyst.environment.Environment
+import com.katalyst.extension.formattedTime
 import com.katalyst.highlighter.kotlin.dom.kotlinCode
 import com.katalyst.site.templates.pageTemplate
 import java.io.File
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 suspend fun buildIndexPage(environment: Environment) {
     val indexPage = document(environment) {
         pageTemplate {
             h2("Katalyst Static Site Generator")
+            span(className = "article-date") {
+                text("Last updated on ")
+                formattedTime(
+                    epochMillis = Instant.now().toEpochMilli(),
+                    timeZoneId = ZoneId.of("GMT+05:30"),
+                )
+            }
             p("Katalyst is a Kotlin/JVM library for developing static websites. Currently, Katalyst implements the following concepts:")
             ol {
                 li("Type-safe, extendable Kotlin DSL of basic HTML elements.")
