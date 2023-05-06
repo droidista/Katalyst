@@ -38,14 +38,14 @@ fun BodyContext.formattedTime(
     id: String? = null,
     className: String? = null,
     epochMillis: Long,
-    localizedPattern: String,
+    pattern: String,
     timeZoneId: ZoneId = ZoneId.systemDefault(),
     customAttributes: Map<String, String?>? = null,
 ) {
     val zonedTime = Instant.ofEpochMilli(epochMillis)
         .atZone(timeZoneId)
     val isoFormattedTime = zonedTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-    val humanReadableTimeFormatter = DateTimeFormatter.ofLocalizedPattern(localizedPattern)
+    val humanReadableTimeFormatter = DateTimeFormatter.ofPattern(pattern)
     val humanReadableTime = zonedTime.format(humanReadableTimeFormatter)
     time(
         id = id,

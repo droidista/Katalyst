@@ -8,7 +8,6 @@ import com.katalyst.site.templates.pageTemplate
 import java.io.File
 import java.time.Instant
 import java.time.ZoneId
-import java.time.ZonedDateTime
 
 suspend fun buildIndexPage(environment: Environment) {
     val indexPage = document(environment) {
