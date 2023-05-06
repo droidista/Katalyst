@@ -17,7 +17,7 @@ fun BodyContext.formattedTime(
 ) {
     val zonedTime = Instant.ofEpochMilli(epochMillis)
         .atZone(timeZoneId)
-    val isoFormattedTime = zonedTime.format(DateTimeFormatter.ISO_DATE_TIME)
+    val isoFormattedTime = zonedTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
     val humanReadableTimeFormatter = when {
         dateFormat == null && timeFormat == null -> DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.FULL)
         dateFormat == null && timeFormat != null -> DateTimeFormatter.ofLocalizedTime(timeFormat)
@@ -25,5 +25,11 @@ fun BodyContext.formattedTime(
         else -> DateTimeFormatter.ofLocalizedDateTime(dateFormat, timeFormat)
     }
     val humanReadableTime = zonedTime.format(humanReadableTimeFormatter)
-    time(id, className, isoFormattedTime, customAttributes, humanReadableTime)
+    time(
+        id = id,
+        className = className,
+        dateTime = isoFormattedTime,
+        customAttributes = customAttributes,
+        text = humanReadableTime,
+    )
 }

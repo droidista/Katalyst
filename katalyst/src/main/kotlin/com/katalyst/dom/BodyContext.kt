@@ -580,7 +580,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
                     put("id", dateTime)
                 }
                 if (className != null) {
-                    put("class", dateTime)
+                    put("class", className)
                 }
                 if (dateTime != null) {
                     put("datetime", dateTime)
@@ -611,7 +611,7 @@ class BodyContext(val node: Node, environment: Environment) : BaseContext(enviro
                     put("id", dateTime)
                 }
                 if (className != null) {
-                    put("class", dateTime)
+                    put("class", className)
                 }
                 if (dateTime != null) {
                     put("datetime", dateTime)
