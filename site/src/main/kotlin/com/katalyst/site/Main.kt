@@ -11,7 +11,15 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import java.io.File
 
+lateinit var SITE_PREFIX: String
+
 suspend fun main(): Unit = withContext(Dispatchers.Default) {
+    SITE_PREFIX = try {
+        System.getenv("SITE_PREFIX") ?: ""
+    } catch (e: Exception) {
+        e.printStackTrace()
+        ""
+    }
     val workingDirectory = System.getProperty("user.dir")
     val environment = Environment(
         baseDir = File(workingDirectory,"static"),
