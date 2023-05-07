@@ -40,6 +40,7 @@ fun BodyContext.responsiveImage(
         val decimalFormat = DecimalFormat("0.#")
         val imageMagickPath = findImageMagickBinaryPath()
         val inputFile = File(environment.baseDir, src)
+        val outputDir = File(environment.outputDir, src).parentFile
         picture {
             if (imageMagickPath != null) {
                 val deferredSrcSets = mutableListOf<SrcSet<Deferred<File>>>()
@@ -49,7 +50,7 @@ fun BodyContext.responsiveImage(
                         deferredScaledImages.add(
                             ScaledImage(
                                 imageFile = async {
-                                    resizeImage(inputFile, environment.outputDir, width, height, scale, imageFormat)
+                                    resizeImage(inputFile, outputDir, width, height, scale, imageFormat)
                                 },
                                 scaleFactor = scale,
                             )
@@ -72,7 +73,7 @@ fun BodyContext.responsiveImage(
                     val type = srcSet.format.mimeType
                     val srcSetAttr = srcSet.images.joinToString { img ->
                         String.format(
-                            Locale.US, "%s %sx",
+                            Locale.US, "/%s %sx",
                             img.imageFile.relativeTo(environment.outputDir),
                             decimalFormat.format(img.scaleFactor),
                         )
