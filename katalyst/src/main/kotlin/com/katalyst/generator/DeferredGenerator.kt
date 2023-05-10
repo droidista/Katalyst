@@ -5,5 +5,5 @@ import com.katalyst.dom.Node
 import com.katalyst.environment.Environment
 
 fun interface DeferredGenerator {
-    fun generate(root: Node, environment: Environment): Element
+    fun generate(root: Node, environment: Environment): List<Element>
 }

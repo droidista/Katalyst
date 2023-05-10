@@ -9,7 +9,7 @@ import com.katalyst.dom.*
  * HTML tree structure
  */
 class HtmlTreeStructureGenerator : DeferredGenerator {
-    override fun generate(root: Node, environment: Environment): Element {
+    override fun generate(root: Node, environment: Environment): List<Element> {
         val buffer = StringBuffer()
         val elements = mutableListOf<MutableList<Element>>()
         val indices = mutableListOf<Int>()
@@ -48,7 +48,7 @@ class HtmlTreeStructureGenerator : DeferredGenerator {
             }
             index++
         }
-        return Text(buffer.toString())
+        return listOf(Text(buffer.toString()))
     }
 }
 

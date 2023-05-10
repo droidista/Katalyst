@@ -7,7 +7,7 @@ import com.katalyst.environment.Environment
 import com.katalyst.dom.Text
 
 class InlineStyleGenerator(val cssDefinitionList: List<CssDefinition>) : DeferredGenerator {
-    override fun generate(root: Node, environment: Environment): Element {
+    override fun generate(root: Node, environment: Environment): List<Element> {
         val matchingDefinitions = extractMatchingStylesheets(root)
         val definitionsWithDependencies = resolveDependencies(matchingDefinitions)
         val generatedCss = definitionsWithDependencies.joinToString(separator = " ") { it.render() }
@@ -15,7 +15,7 @@ class InlineStyleGenerator(val cssDefinitionList: List<CssDefinition>) : Deferre
         node.children = mutableListOf(
             Text(text = generatedCss, parent = node)
         )
-        return node
+        return listOf(node)
     }
 
     private fun extractMatchingStylesheets(root: Node): MutableSet<CssDefinition> {

@@ -118,9 +118,10 @@ fun resolveDeferredNodes(root: Node, environment: Environment): DeferredElementR
             deferredElementParentList != null &&
             deferredElementIndex >= 0
         ) {
-            val element = deferredElement.generator.generate(root, environment)
-            deferredElementParentList[deferredElementIndex] = element
-            deferredElementCount++
+            val elements = deferredElement.generator.generate(root, environment)
+            deferredElementParentList.removeAt(deferredElementIndex)
+            deferredElementParentList.addAll(deferredElementIndex, elements)
+            deferredElementCount += elements.size
         } else {
             break@outer
         }
