@@ -11,14 +11,14 @@ Katalyst is a Kotlin/JVM library for developing static websites. Currently, Kata
 3. CSS compiler utilising the multi-phased HTML builder by analyzing the HTML tree and compiles only the minimal set of
    CSS rules required to include in the page.
 
-[Guide](https://droidista.github.io/Katalyst) [API Reference](https://droidista.github.io/Katalyst/doc)
+[Guide](https://katalyst.pages.dev) [API Reference](https://katalyst.pages.dev/doc)
 
 ## Roadmap
 
-| # | Project Roadmap        | Status                                                  |
-|---|------------------------|---------------------------------------------------------|
-| 1 | API documentation      | [In Progress](https://droidista.github.io/Katalyst/doc) |
-| 2 | Publish Maven Artifact | `To do`                                                 |
+| # | Project Roadmap        | Status                                        |
+|---|------------------------|-----------------------------------------------|
+| 1 | API documentation      | [In Progress](https://katalyst.pages.dev/doc) |
+| 2 | Publish Maven Artifact | `To do`                                       |
 
 | # | Plugins Roadmap           | Status                                                                                                                                  |
 |---|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|

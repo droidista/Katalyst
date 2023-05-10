@@ -7,7 +7,7 @@ fun BodyContext.includeSiteNavigation() {
     nav(className = "site-nav") {
         a(className = "nav-menu-item", href = "https://github.com/droidista/Katalyst", text = "Github")
         text(" ")
-        a(className = "nav-menu-item", href = "https://droidista.github.io/Katalyst/doc", text = "API Docs")
+        a(className = "nav-menu-item", href = "https://katalyst.pages.dev/doc", text = "API Docs")
         text(" ")
         a(
             id = "btn-switch-dark",

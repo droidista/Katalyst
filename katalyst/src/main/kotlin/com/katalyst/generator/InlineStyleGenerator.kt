@@ -1,6 +1,7 @@
 package com.katalyst.generator
 
 import com.katalyst.css.CssDefinition
+import com.katalyst.css.Preload
 import com.katalyst.dom.Element
 import com.katalyst.dom.Node
 import com.katalyst.environment.Environment
@@ -10,12 +11,28 @@ class InlineStyleGenerator(val cssDefinitionList: List<CssDefinition>) : Deferre
     override fun generate(root: Node, environment: Environment): List<Element> {
         val matchingDefinitions = extractMatchingStylesheets(root)
         val definitionsWithDependencies = resolveDependencies(matchingDefinitions)
+        val elements = definitionsWithDependencies
+            .filter { !it.preloadList.isNullOrEmpty() }
+            .flatMap { it.preloadList!! }
+            .toSet()
+            .map {
+                Node(
+                    tagName = "link",
+                    attributes = mapOf(
+                        "rel" to "preload",
+                        "href" to it.href,
+                        "as" to it.`as`,
+                        "type" to it.type,
+                    ),
+                )
+            }.toMutableList()
         val generatedCss = definitionsWithDependencies.joinToString(separator = " ") { it.render() }
         val node = Node("style")
         node.children = mutableListOf(
             Text(text = generatedCss, parent = node)
         )
-        return listOf(node)
+        elements.add(node)
+        return elements
     }
 
     private fun extractMatchingStylesheets(root: Node): MutableSet<CssDefinition> {

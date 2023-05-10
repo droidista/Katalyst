@@ -58,6 +58,7 @@ data class CssDefinition(
     var declarations: Map<String, String>? = null,
     var dependencyTag: String? = null,
     var depends: List<String>? = null,
+    var preloadList: List<Preload>? = null,
 ) {
     /**
      * Compiles the [CssDefinition] for including them in the `<style>` element.

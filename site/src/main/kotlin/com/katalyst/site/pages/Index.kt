@@ -276,7 +276,7 @@ suspend fun buildIndexPage(environment: Environment) {
                 kotlinCode("""
                     repositories {
                         maven {
-                            url = uri("https://droidista.github.io/Katalyst/maven")
+                            url = uri("https://katalyst.pages.dev/maven")
                         }
                     }
                     dependencies {

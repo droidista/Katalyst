@@ -43,7 +43,7 @@ val baseCss = listOf(
         ),
         query = "@supports (font-variation-settings: normal)",
         declarations = mapOf(
-            "font-family" to "'Inter var', sans-serif",
+            "font-family" to "'Inter', sans-serif",
         ),
         depends = listOf("Inter"),
     ),
