@@ -1,10 +1,29 @@
 package com.katalyst.site.css
 
 import com.katalyst.css.*
+import com.katalyst.highlighter.kotlin.css.colorBackground
 
-private const val WIDTH_BREAKPOINT = 44
+private const val WIDTH_BREAKPOINT = 48
 
 val baseCss = listOf(
+    CssDefinition(
+        matchers = listOf(
+            ClassName("display-light-only")
+        ),
+        declarations = mapOf(
+            "display" to "var(--btn-switch-dark-display)",
+        ),
+        depends = listOf(":root")
+    ),
+    CssDefinition(
+        matchers = listOf(
+            ClassName("display-dark-only")
+        ),
+        declarations = mapOf(
+            "display" to "var(--btn-switch-light-display)",
+        ),
+        depends = listOf(":root")
+    ),
     CssDefinition(
         matchers = listOf(
             Id("btn-switch-dark"),
@@ -153,7 +172,7 @@ val baseCss = listOf(
             "border-radius" to "2em",
             "background-color" to "var(--nav-menu-bg-normal)",
             "border" to "1.5pt solid var(--nav-menu-text-color)",
-            "font-size" to "1.1em",
+            "font-size" to "1em",
         ),
         depends = listOf(":root"),
     ),
@@ -164,12 +183,12 @@ val baseCss = listOf(
         declarations = mapOf(
             "display" to "inline-block",
             "color" to "var(--nav-menu-text-color)",
-            "padding" to "0.5em 1em",
+            "padding" to "0.45em 1em",
             "text-decoration" to "none",
             "border-radius" to "2em",
             "background-color" to "var(--nav-menu-bg-normal)",
             "border" to "1.5pt solid var(--nav-menu-text-color)",
-            "font-size" to "1.1em",
+            "font-size" to "1em",
             "background-repeat" to "no-repeat",
             "background-position" to "center",
             "background-image" to "var(--btn-switch-theme-icon)",
@@ -266,6 +285,25 @@ val baseCss = listOf(
         declarations = mapOf(
             "display" to "block",
             "padding" to "0.2em 2em",
+        ),
+    ),
+    CssDefinition(
+        matchers = listOf(
+            ClassName("code-block")
+        ),
+        declarations = mapOf(
+            "background" to colorBackground,
+            "padding" to "0.5em",
+            "color" to "#BCBEC4",
+        ),
+    ),
+    CssDefinition(
+        matchers = listOf(
+            ClassName("full-width-image")
+        ),
+        declarations = mapOf(
+            "width" to "100%",
+            "height" to "auto",
         ),
     ),
 )

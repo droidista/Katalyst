@@ -3,6 +3,7 @@ package com.katalyst.site
 import com.katalyst.environment.Environment
 import com.katalyst.environment.clean
 import com.katalyst.environment.copyStaticAssets
+import com.katalyst.site.pages.buildError404Page
 import com.katalyst.site.pages.buildExamplePage
 import com.katalyst.site.pages.buildIndexPage
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +30,8 @@ suspend fun main(): Unit = withContext(Dispatchers.Default) {
     val asyncTasks = listOf(
         async { copyStaticAssets(environment) },
         async { buildIndexPage(environment) },
-        async { buildExamplePage(environment) }
+        async { buildExamplePage(environment) },
+        async { buildError404Page(environment) },
     )
     asyncTasks.awaitAll()
 }

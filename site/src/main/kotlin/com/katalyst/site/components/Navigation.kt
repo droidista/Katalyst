@@ -5,30 +5,9 @@ import com.katalyst.dom.Node
 
 fun BodyContext.includeSiteNavigation() {
     nav(className = "site-nav") {
-        a(className = "nav-menu-item", href = "https://github.com/droidista/Katalyst", text = "Github")
+        a(className = "nav-menu-item", href = "https://github.com/droidista/Katalyst", text = "GitHub")
         text(" ")
         a(className = "nav-menu-item", href = "https://katalyst.pages.dev/doc", text = "API Docs")
-        text(" ")
-        a(
-            id = "btn-switch-dark",
-            className = "nav-menu-item-toggle requires-js",
-            href = "javascript:switchToDarkMode();",
-            text = "&ThickSpace;",
-            customAttributes = mapOf(
-                "aria-label" to "Switch to dark mode"
-            ),
-        )
-        //text("\n")
-        text(" ")
-        a(
-            id = "btn-switch-light",
-            className = "nav-menu-item-toggle requires-js",
-            href = "javascript:switchToLightMode();",
-            text = "&ThickSpace;",
-            customAttributes = mapOf(
-                "aria-label" to "Switch to dark mode"
-            )
-        )
     }
 }
 

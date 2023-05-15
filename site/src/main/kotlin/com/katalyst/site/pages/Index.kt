@@ -238,18 +238,18 @@ suspend fun buildIndexPage(environment: Environment) {
             }
             h2("Get started with Katalyst")
             p {
-                text("You can start your static site right now with the pre-release builds of Katalyst in Github ")
+                text("You can start your static site right now with the pre-release builds of Katalyst in GitHub ")
                 text("Packages Maven repository or the public Maven repository.")
             }
-            h3("Set up Github Packages Maven Repository")
+            h3("Set up GitHub Packages Maven Repository")
             p {
                 a(
                     href = "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry",
-                    text = "Github Packages Maven Repository",
+                    text = "GitHub Packages Maven Repository",
                     customAttributes = mapOf("target" to "_blank")
                 )
                 text(" requires authentication using your ")
-                text("Github personal access token with at least ")
+                text("GitHub personal access token with at least ")
                 code("read:packages", className = "highlight")
                 text(" scope to install Katalyst packages.")
                 kotlinCode("""
@@ -272,7 +272,7 @@ suspend fun buildIndexPage(environment: Environment) {
             h3("Set up Katalyst Public Maven Repository")
             p {
                 text("The access to the public Maven repository is fairly easier and does not require authentication. ")
-                text("It is hosted along with the Github hosted website of Katalyst. ")
+                text("It is hosted along with the GitHub hosted website of Katalyst. ")
                 kotlinCode("""
                     repositories {
                         maven {
