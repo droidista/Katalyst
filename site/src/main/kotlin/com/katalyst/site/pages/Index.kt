@@ -20,7 +20,21 @@ suspend fun buildIndexPage(environment: Environment) {
                     timeZoneId = ZoneId.of("GMT+05:30"),
                 )
             }
-            p("Katalyst is a Kotlin/JVM library for developing static websites. Currently, Katalyst implements the following concepts:")
+            p("Katalyst is a Kotlin/JVM library for developing static websites. You can develop HTML pages with " +
+                    "the DSL provided by the library like this:")
+
+            kotlinCode("""
+                html {
+                    head {
+                        title("Hello, Katalyst!")
+                    }
+                    body {
+                        h1("Hello, world!")
+                        p("This is an example of a static site built with Katalyst.")
+                    }
+                }
+            """.trimIndent())
+            p("Currently, Katalyst implements the following concepts:")
             ol {
                 li("Type-safe, extendable Kotlin DSL of basic HTML elements.")
                 li {
@@ -94,23 +108,61 @@ suspend fun buildIndexPage(environment: Environment) {
                     }
                 }
             }
+            p {
+                text("Kotlin provides us the ability to extend a class without having to inherit from the class through ")
+                a(href = "https://kotlinlang.org/docs/extensions.html", text = "extensions")
+                text(". You can extend the DSL to define your own templates, so you can efficiently reuse them in your " +
+                        "projects, and also you can share them as Maven artifacts. Here is a short example:")
+            }
+            kotlinCode("""
+                fun BodyContext.myFancyTextBox(text: String) {
+                    div(className = "my-fancy-box") {
+                        span(text)
+                    }
+                }
+            """.trimIndent())
+            p {
+                text("For a real-life use case, you can refer to the implementation of ")
+                code(className = "highlight") {
+                    a(
+                        href = "https://github.com/droidista/Katalyst/tree/main/responsive-image",
+                        text = "responsive-image",
+                        customAttributes = mapOf("target" to "_blank"),
+                    )
+                }
+                text(" and ")
+                code(className = "highlight") {
+                    a(
+                        href = "https://github.com/droidista/Katalyst/tree/main/kotlin-syntax-highlighter-plugin",
+                        text = "kotlin-syntax-highlighter-plugin",
+                        customAttributes = mapOf("target" to "_blank"),
+                    )
+                }
+                text(" plugins.")
+                text("These artifacts are available along with Katalyst in the project's ")
+                a(href = "#katalyst-maven-repo", text = "Maven repository.")
+            }
             h2("Phased HTML element tree generation")
             p {
-                text("Katalyst introduces the ")
-                code("deferred(generator: DeferredGenerator): Deferred", className = "highlight")
-                text(" element to postpone the generation of a branch of HTML element tree to the next phase. ")
-                text("During the next phase, the ")
-                code("Deferred", className = "highlight")
-                text("element can traverse through the element tree, analyze them and return an ")
-                code("Element", className = "highlight")
-                text(". ")
-                text("The deferred element will be replaced with the generated element by the ")
+                text("With Katalyst, you can split the web page generation to multiple phases, such that the partial " +
+                        "tree generated during the current phase can be analyzed between the phases. This is helpful " +
+                        "if the elements of the tree depends on other elements, or something can be built conditionally. " +
+                        "If a branch of the tree cannot be determined on this phase, place a ")
+                code(text = "Deferred", className = "highlight")
+                text(" element in that position, and continue building the other parts of the tree. You should provide a ")
+                code(text = "DeferredGenerator", className = "highlight")
+                text(" so Katalyst will provide access to the current state of the tree to the generator, so that it " +
+                        "can generate the elements according to the current state of the tree. ")
+                text("The deferred elements will be prioritised, built and replace the deferred node with the elements " +
+                        " returned by the generator at the same position of the deferred node. The ")
                 code("recursivelyResolveDeferredNodes", className = "highlight")
-                text(" method.")
+                text(" method of the Katalyst framework takes care of the prioritisation, building and replacement of " +
+                        "the deferred nodes.")
             }
 
             p {
-                text("Here is an example of deferred style generator")
+                text("Here is an example of deferred generator, which iterates through the tree and prints them " +
+                        "in the same page:")
             }
             val wd = System.getProperty("user.dir")
             val file = File(wd, "/src/main/kotlin/com/katalyst/site/pages/Example.kt")
@@ -236,7 +288,7 @@ suspend fun buildIndexPage(environment: Environment) {
                 code("style", className = "highlight")
                 text(" element.")
             }
-            h2("Get started with Katalyst")
+            h2(id = "katalyst-maven-repo", text = "Get started with Katalyst")
             p {
                 text("You can start your static site right now with the pre-release builds of Katalyst in GitHub ")
                 text("Packages Maven repository or the public Maven repository.")
