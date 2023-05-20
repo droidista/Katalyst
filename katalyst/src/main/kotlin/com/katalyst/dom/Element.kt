@@ -29,13 +29,11 @@ data class Node(
             val children = children
             if (!attributes.isNullOrEmpty()) {
                 attributes.forEach { (key, value) ->
+                    append(" ")
+                    append(key)
                     if (value != null) {
-                        append(" ")
-                        append(key)
-                        if (value != "true") {
-                            append("=")
-                            append("\"$value\"")
-                        }
+                        append("=")
+                        append("\"$value\"")
                     }
                 }
             }
