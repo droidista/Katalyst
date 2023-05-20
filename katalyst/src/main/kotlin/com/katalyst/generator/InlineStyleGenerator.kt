@@ -23,6 +23,7 @@ class InlineStyleGenerator(val cssDefinitionList: List<CssDefinition>) : Deferre
                         "href" to it.href,
                         "as" to it.`as`,
                         "type" to it.type,
+                        "crossorigin" to null,
                     ),
                 )
             }.toMutableList()
